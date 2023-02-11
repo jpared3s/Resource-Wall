@@ -201,10 +201,10 @@ const addResource = function (resource) {
     INSERT INTO resources (owner_id, title, description, tags) VALUES ($1, $2, $3)
     RETURNING *;`, values)
     .then((result) => {
-      console.log("~~~~~~~234~~~~~~~~~~~~~~~~: ", result.rows);
+      console.log("~~~~~~~insert success~~~~~~~~~~~~~~~~: ", result.rows);
     })
     .catch((err) => {
-      console.log("~~~~~~~~~~~~~~~~~~~~~~~: ", err.message);
+      console.log("~~~~~~~~~insert failure~~~~~~~~~~~~~~: ", err.message);
       return null;
     });
 
