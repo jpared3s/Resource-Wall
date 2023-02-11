@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
   
-  res.render('users', templateVars);
+  res.render('profileUpdate', templateVars);
 }); 
 
 router.put('/', (req, res) => {
