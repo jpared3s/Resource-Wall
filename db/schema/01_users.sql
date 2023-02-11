@@ -1,6 +1,7 @@
 -- Drop and recreate Users table (Example)
 
 DROP TABLE IF EXISTS users CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   username VARCHAR(255) NOT NULL,
@@ -29,6 +30,7 @@ CREATE TABLE reviews(
 )
 
 DROP TABLE IF EXISTS users_resources CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   resource_id INT REFERENCES resources(id) ON DELETE CASCADE,
@@ -36,6 +38,7 @@ CREATE TABLE users (
 );
 
 DROP TABLE IF EXISTS users_likes CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   resource_id INT REFERENCES resources(id) ON DELETE CASCADE,
