@@ -25,6 +25,7 @@ app.use(
   })
 );
 app.use(express.static("public"));
+const { Pool } = require('pg');//importing the database connection
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -43,13 +44,40 @@ app.use("/users", usersRoutes);
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
+const pool = new Pool({
+  user: 'labber',
+  password: 'labber',
+  host: 'localhost',
+  database: 'midterm'
+});
 
 app.get("/", (req, res) => {
   res.render("index1");
 });
 
 app.get('/login', (req, res) => {
+  //established user variable with cookie
+  // if (user) {
+  //   res.redirect('/')
+  //   return;
+  // }
   res.render('login');
+});
+
+app.post('/login', (req,res ) => {
+  console.log(req.body)
+  pool.query(`
+SELECT *
+FROM users;
+`)
+.then(res => {
+  console.log(res.rows);
+})
+.catch(err => console.error('query error', err.stack));
+  res.redirect('/');
+  //from the req.body get email and password and verify with database
+  //set id to cookie
+  //if valid sent to profile page if not send error
 });
 
 app.listen(PORT, () => {
