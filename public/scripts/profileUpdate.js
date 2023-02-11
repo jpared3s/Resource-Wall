@@ -15,7 +15,8 @@
 //     });
 //   });
 // });
-// const bcrypt = require('bcrypt');
+
+
 
 $(document).ready(function() {
   console.log("I'm ready");
@@ -25,12 +26,17 @@ $(document).ready(function() {
     let $form = $(this);
     let $input = $form.find("input");
     event.preventDefault();
-    console.log($input.val());
+    // console.log($input.val());
     if (!$input.val()) {
       $(".emailEmpty").slideDown(200);
     }
     if ($input.val()) {
       $(".emailSuccess").slideDown(200);
+      $.post("/profile/", $input.serialize())
+        .done(function() {
+          console.log("posting done line 237~~~~~~");
+        })
+        // .fail(() => alert("Something went wrong when posting your tweet! Please refresh your page and try again."));
     }
     // pool.query(`
     // UPDATE users
@@ -57,6 +63,12 @@ $(document).ready(function() {
     }
     if (newPassValidator($password.val(),$confirmation.val()) === "valid") {
       $(".passwordSuccess").slideDown(200);
+      
+      $.post("profile/updatepass", $password.serialize())
+      .done(function() {
+        console.log("posting done line 237~~~~~~");
+      })
+      // .fail(() => alert("Something went wrong when posting your tweet! Please refresh your page and try again."));
     }
     $password.val("");
     $confirmation.val("");
