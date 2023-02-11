@@ -7,9 +7,41 @@
 
 const express = require('express');
 const router  = express.Router();
+const bcrypt = require('bcrypt');
 
 router.get('/', (req, res) => {
-  res.render('users');
+  const templateVars = {
+    // user: users[req.session.user_id],
+    // urls: urlsForUser(req.session.user_id, urlDatabase),
+  };
+  
+  res.render('users', templateVars);
 }); 
+
+router.put('/', (req, res) => {
+  console.log(req.params.body);
+  /*
+  PSEUDO CODE pending update;
+  if (req.body.params.email) {
+    pool.query(`
+    UPDATE users
+    SET email = ${req.body.params}
+    WHERE id = currentuser
+    `).then(() => {console.log("Update successful!")});
+  }
+  if (req.body.params.email) {
+    pool.query(`
+    UPDATE users
+    SET password = bcrypt.hashSync(${req.body.params}, 12);
+    WHERE id = currentuser
+    `).then(() => {console.log("Update successful!")});
+  }
+  
+  */
+
+});
+
+
+
 
 module.exports = router;
