@@ -31,7 +31,7 @@ CREATE TABLE reviews(
 
 DROP TABLE IF EXISTS users_resources CASCADE;
 
-CREATE TABLE users (
+CREATE TABLE users_resources (
   id SERIAL PRIMARY KEY NOT NULL,
   resource_id INT REFERENCES resources(id) ON DELETE CASCADE,
   user_id INT REFERENCES users(id) ON DELETE CASCADE
@@ -39,7 +39,7 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS users_likes CASCADE;
 
-CREATE TABLE users (
+CREATE TABLE users_likes (
   id SERIAL PRIMARY KEY NOT NULL,
   resource_id INT REFERENCES resources(id) ON DELETE CASCADE,
   user_id INT REFERENCES users(id) ON DELETE CASCADE

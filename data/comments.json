@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "author_id": 1,
+    "resource_id": 2,
+    "content": "I love this!"
+  },
+  {
+    "id": 2,
+    "author_id": 2,
+    "resource_id": 1,
+    "content": "I like this"
+  },
+  {
+    "id": 3,
+    "author_id": 1,
+    "resource_id": 1,
+    "content": "You could do better"
+  },
+  {
+    "id": 4,
+    "author_id": 3,
+    "resource_id": 3,
+    "content": "I wanna learn React Native"
+  },
+  {
+    "id": 5,
+    "author_id": 1,
+    "resource_id": 3,
+    "content": "Thank you for this resource!"
+  },
+  {
+    "id": 6,
+    "author_id": 2,
+    "resource_id": 2,
+    "content": "I love you!"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "category_name": "React Native"
+  },
+  {
+    "id": 2,
+    "category_name": "HTML"
+  },
+  {
+    "id": 3,
+    "category_name": "Tailwind"
+  },
+  {
+    "id": 4,
+    "category_name": "React"
+  },
+  {
+    "id": 5,
+    "category_name": "Next.js"
+  },
+  {
+    "id": 6,
+    "category_name": "JavaScript"
+  },
+  {
+    "id": 7,
+    "category_name": "CSS"
+  },
+  {
+    "id": 8,
+    "category_name": "jQuery"
+  }
+]
