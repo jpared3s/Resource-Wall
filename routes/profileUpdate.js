@@ -23,6 +23,7 @@ app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
   console.log("get in there mate!");
+
   // console.log(req)
   const templateVars = {
     // user: users[req.session.user_id],
@@ -34,14 +35,20 @@ router.get('/', (req, res) => {
 
 router.post('/updatepass', (req, res) => {
   console.log("I need a new password!");
-  console.log(req.body.new_password);
-}
+  // console.log(req.body.new_password);
+  let bob = bcrypt.hashSync(req.body.new_password, 10);
+  console.log(bcrypt.compareSync(req.body.new_password, bob));
+
+  // pool.query(`SELECT * FROM users;`)
+  //   .then((res) => console.log(res.rows))
+  //   .catch((e) => console.log(e));
+  }
 );
 
 router.post('/', (req, res) => {
   console.log("new post incoming");
   console.log(req.body.email);
-  pool.query(`SELECT * FROM users limit 5;`)
+  pool.query(`SELECT * FROM users;`)
   .then((res) => console.log(res.rows))
   .catch((e) => console.log(e));
 
@@ -51,7 +58,7 @@ router.post('/', (req, res) => {
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
   
-  res.render('profileUpdate', templateVars);
+  // res.render('profileUpdate', templateVars);
 }); 
 
 
