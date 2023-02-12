@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Users</title>
+  <title>Profile</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -20,7 +20,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
-  <script defer src="/scripts/users.js"></script>
+  <script defer src="/scripts/profileUpdate.js"></script>
 </head>
 
 <body>
@@ -38,7 +38,7 @@
     <div class ="messages emailSuccess">
       Your email has been successfully updated!
     </div>
-  <form class="form-inline emailUpdater" action="/users_method=PUT" method="POST">
+  <form class="form-inline emailUpdater" action="/profile?_method=PUT" method="POST">
     <div class="form-group mb-2">
       <label for="update_email">Enter your new email:</label>
       <input class="form-control" type="email" name="email" placeholder="@email.com"
@@ -57,7 +57,7 @@
     <div class ="messages passwordSuccess">
       Your password has been successfully updated!
     </div>
-  <form class="form-inline passwordUpdater" action="/users" method="POST">
+  <form class="form-inline passwordUpdater" action="/profile?_method=PUT" method="POST">
     <div class="form-group mb-2">
       <label for="update_password">Enter your new password:</label>
       <input class="form-control new_password" type="password" name="new_password" placeholder="********"
