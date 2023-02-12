@@ -64,21 +64,30 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.post('/login', (req,res ) => {
-  console.log(req.body)
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
   pool.query(`
-SELECT *
-FROM users;
-`)
-.then(res => {
-  console.log(res.rows);
-})
-.catch(err => console.error('query error', err.stack));
-  res.redirect('/');
-  //from the req.body get email and password and verify with database
-  //set id to cookie
-  //if valid sent to profile page if not send error
+    SELECT *
+    FROM users
+    WHERE email = $1 AND password = $2;
+    `, [email, password])
+  //   WHERE email = $1;
+  // `, [email])
+    .then(result => {
+
+      if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+        res.redirect('/profile');
+      } else {
+        res.send('Error: invalid email or password');
+      }
+    })
+    .catch(err => console.error('query error', err.stack));
 });
+
+//set id to cookie
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
