@@ -8,6 +8,10 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
+const methodOverride = require('method-override');
+const app = express();
+
+app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
   const templateVars = {
