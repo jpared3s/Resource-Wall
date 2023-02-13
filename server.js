@@ -2,13 +2,11 @@
 require("dotenv").config();
 // const bcrypt = require('bcrypt');
 
-
 // Web server config
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
-const bcrypt = require('bcrypt');
-
+const bcrypt = require("bcrypt");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -29,7 +27,7 @@ app.use(
   })
 );
 app.use(express.static("public"));
-const { Pool } = require('pg');//importing the database connection
+const { Pool } = require("pg"); //importing the database connection
 
 
 // Separated Routes for each Resource
@@ -42,6 +40,7 @@ const registration = require("./routes/submitRegister");
 
 const profileRoutes = require("./routes/profileUpdate");
 
+
 const newRoutes = require("./routes/addResource");
 
 
@@ -51,6 +50,7 @@ const newRoutes = require("./routes/addResource");
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
+app.use("/register", registration);
 app.use("/profile", profileRoutes);
 app.use("/addResource", newRoutes);
 app.use("/submitRegister", registration)
@@ -66,10 +66,10 @@ app.use("/submitRegister", registration)
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 const pool = new Pool({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  database: 'midterm'
+  user: "labber",
+  password: "labber",
+  host: "localhost",
+  database: "midterm",
 });
 
 app.get("/", (req, res) => {
@@ -113,22 +113,25 @@ app.get("/register", (req, res) => {
 //   res.redirect("/");
 // });
 
-app.get('/login', (req, res) => {
+app.get("/login", (req, res) => {
   //established user variable with cookie
   // if (user) {
   //   res.redirect('/')
   //   return;
   // }
-  res.render('login');
+  res.render("login");
 });
 
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  pool.query(`
+  pool
+    .query(
+      `
     SELECT *
     FROM users
+
     WHERE email = $1;
     `, [email])
   //   WHERE email = $1;
@@ -137,15 +140,15 @@ app.post('/login', (req, res) => {
 
       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
         res.redirect('/profile');
+
       } else {
-        res.send('Error: invalid email or password');
+        res.send("Error: invalid email or password");
       }
     })
-    .catch(err => console.error('query error', err.stack));
+    .catch((err) => console.error("query error", err.stack));
 });
 
 //set id to cookie
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

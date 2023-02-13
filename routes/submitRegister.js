@@ -7,7 +7,6 @@ const app = express();
 
 
 router.get("/register", (req, res) => {
-  console.log(bcrypt.hashSync("password", 10))
   console.log(req.body);
   res.render("registration");
 });
@@ -18,17 +17,26 @@ router.post("/register", (req, res) => {
   VALUES($1, $2, $3)
   RETURNING *;`;
 
-  db.query(queryString1, [req.body.email]).then((res) => {
-    if (res.rows[0]) {
-      throw Error("error: exists username");
-    }
-    const password = req.body.password;
-    const passwordHash = bcrypt.hashSync(password, 10);
-    const inputValue = [req.body.username, req.body.email, passwordHash];
+  db.query(queryString1, [req.body.email])
+    .then((res) => {
+      if (res.rows[0]) {
+        throw Error("error: exists username");
+      }
+      const password = req.body.password;
+      const passwordHash = bcrypt.hashSync(password, 10);
+      const inputValue = [req.body.username, req.body.email, passwordHash];
 
-    return db.query(queryString2, inputValue)
-  })
-  
+
+      return db.query(queryString2, inputValue);
+    })
+    .then((data) => {
+      res.redirect("/login");
+      console.log(data.rows[0]);
+    })
+    .catch((err) => {
+      res.status(500);
+      console.log(err);
+    });
 });
 //   pool
 //     .query(
