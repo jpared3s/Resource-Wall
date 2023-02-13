@@ -6,6 +6,8 @@ const db = require("../db/connection");
 const app = express();
 
 
+
+
 router.get("/", (req, res) => {
   console.log(req.body);
   res.render('addResource');
@@ -19,9 +21,21 @@ router.post("/", (req, res) => {
   RETURNING *;
   `,
   values).then((res) => {
-    return res.row[0];
+    return res.rows[0];
   }).catch(e => res.send(e));
   
 });
+
+// code below is for testing, delete later
+// router.get("/123", (req, res) => {
+//   console.log("get request for 123");
+//   return db.query(`
+//   select * FROM resources WHERE tags LIKE '%baseball%';
+//   `).then((result) => {
+//     console.log(result.rows);
+//     res.send(result.rows);
+//   }).catch(e => res.send(e));
+  
+// });
 
 module.exports = router;
