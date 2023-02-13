@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
 const bcrypt = require("bcrypt");
+const cookieSession = require('cookie-session');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -27,6 +28,15 @@ app.use(
   })
 );
 app.use(express.static("public"));
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['maplesyrup', 'beaver', 'lacrosse'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
 const { Pool } = require("pg"); //importing the database connection
 
 
@@ -71,6 +81,11 @@ const pool = new Pool({
   host: "localhost",
   database: "midterm",
 });
+
+
+// plug into Login later
+// req.session.user_id = req.body.email;
+
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");

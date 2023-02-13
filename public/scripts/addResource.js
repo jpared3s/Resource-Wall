@@ -16,6 +16,40 @@ $(document).ready(function() {
         $.post("/addResource", $form.serialize()).done().fail(() => alert("Something went wrong when posting your resource! Please refresh your page and try again."));
       }  
     });
+    // code below is for testing, delete later
+    // $(".testbtn").on("click", (function() {
+    //   $.get("/addResource/123").then((rows)=>{
+    //     console.log(rows);
+    //     renderResources(rows, $(".rjtest"));
+    //   });
+
+      
+    // }));
   
 
 });
+
+const renderResources = (array, section) => {
+  for (let resource of array) {
+    section.prepend(`
+    <article class="resources">
+  <header class="resource-header">
+  <p>
+  ${resource.title}
+  </p>
+  </header>
+  <p class="resources-description">${resource.description}</p>
+
+  <footer>
+    <div class = "comments_for_${resource.id}">
+      <button type="Submit" class="testbtn">Test</button>
+    </div>
+    <div class="footer-icons">
+      <i class="fa-regular fa-thumbs-up"></i>
+      <i class="fa-regular fa-heart hovericon1"></i>
+    </div>
+  </footer>
+</article>
+    `);
+  }
+}
