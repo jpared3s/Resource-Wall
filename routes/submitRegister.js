@@ -3,8 +3,11 @@ const router = express.Router();
 
 const bcrypt = require("bcrypt");
 const db = require("../db/connection");
+const app = express();
 
-app.get("/register", (req, res) => {
+
+router.get("/register", (req, res) => {
+  console.log(bcrypt.hashSync("password", 10))
   console.log(req.body);
   res.render("registration");
 });
@@ -23,7 +26,7 @@ router.post("/register", (req, res) => {
     const passwordHash = bcrypt.hashSync(password, 10);
     const inputValue = [req.body.username, req.body.email, passwordHash];
 
-    return db.query(queryString2,inputValue)
+    return db.query(queryString2, inputValue)
   })
   
 });
@@ -45,3 +48,5 @@ router.post("/register", (req, res) => {
 //     });
 //   res.redirect("/");
 // });
+
+module.exports = router;
