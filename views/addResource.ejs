@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Add A Resource</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+
+  
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <script defer src="/scripts/addResource.js"></script>
+</head>
+
+<body>
+  <!-- <h1>Users</h1>
+  <button id="fetch-users">Fetch Users via AJAX</button>
+  <ul id="users"></ul> -->
+  <!-- <h1>Hello, <%%></h1> -->
+  <h3>
+        Please fill out the form below.
+  </h3>
+  <p>
+    <div class ="messages fieldsEmpty">
+      Please make sure your fields are not empty.
+    </div>
+    <div class ="messages addSuccess">
+      Your resource has been successfully added!
+    </div>
+  <form class="form-inline addNewResource" action="/addResource" method="POST">
+    <div class="form-group mb-2">
+      <label for="addNewResource">Enter the URL here</label>
+      <p>
+      
+        <input class="form-control url" type="url" name="url" placeholder="https://" style="width: 300px; margin: 1em" />
+      </p>
+      <p>
+      
+        <input class="form-control description" type="text" name="description" placeholder="What is your resource about?" style="width: 300px; margin: 1em" />
+      </p>
+      <p>
+      
+        <input class="form-control tags" type="text" name="tags" placeholder="enter tags, separated by spaces or commas" style="width: 300px; margin: 1em" />
+      </p>
+      <button type="Submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  </p>
+
+  </p>
+</body>
+
+</html>

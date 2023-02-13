@@ -29,7 +29,7 @@ app.use(
 app.use(express.static("public"));
 const { Pool } = require("pg"); //importing the database connection
 
-const { pool } = require("pg");
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require("./routes/users-api");
@@ -40,6 +40,10 @@ const registration = require("./routes/submitRegister");
 
 const profileRoutes = require("./routes/profileUpdate");
 
+
+const newRoutes = require("./routes/addResource");
+
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -48,6 +52,8 @@ app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registration);
 app.use("/profile", profileRoutes);
+app.use("/addResource", newRoutes);
+app.use("/submitRegister", registration)
 // Note: mount other resources here, using the same pattern above
 
 // const pool = new Pool({
@@ -82,30 +88,30 @@ app.get("/register", (req, res) => {
   res.render("registration");
 });
 
-app.post("/register", (req, res) => {
-  console.log(req.body);
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
+// app.post("/register", (req, res) => {
+//   console.log(req.body);
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const password = req.body.password;
 
-  pool
-    .query(
-      `
-  INSERT INTO users (name,email,password)
-  VALUES($1,$2,$3)
-  RETURNING*;
-  `,
-      [name, email, password]
-    )
-    .then((result) => {
-      console.log(result.rows[0]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      return null;
-    });
-  res.redirect("/");
-});
+//   pool
+//     .query(
+//       `
+//   INSERT INTO users (name,email,password)
+//   VALUES($1,$2,$3)
+//   RETURNING*;
+//   `,
+//       [name, email, password]
+//     )
+//     .then((result) => {
+//       console.log(result.rows[0]);
+//     })
+//     .catch((err) => {
+//       console.log(err.message);
+//       return null;
+//     });
+//   res.redirect("/");
+// });
 
 app.get("/login", (req, res) => {
   //established user variable with cookie
@@ -125,18 +131,16 @@ app.post("/login", (req, res) => {
       `
     SELECT *
     FROM users
-    WHERE email = $1 AND password = $2;
-    `,
-      [email, password]
-    )
-    //   WHERE email = $1;
-    // `, [email])
-    .then((result) => {
-      if (
-        result.rows.length > 0 &&
-        bcrypt.compareSync(req.body.password, result.rows[0].password)
-      ) {
-        res.redirect("/profile");
+
+    WHERE email = $1;
+    `, [email])
+  //   WHERE email = $1;
+  // `, [email])
+    .then(result => {
+
+      if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+        res.redirect('/profile');
+
       } else {
         res.send("Error: invalid email or password");
       }

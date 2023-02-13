@@ -3,6 +3,8 @@ const router = express.Router();
 
 const bcrypt = require("bcrypt");
 const db = require("../db/connection");
+const app = express();
+
 
 router.get("/register", (req, res) => {
   console.log(req.body);
@@ -23,6 +25,7 @@ router.post("/register", (req, res) => {
       const password = req.body.password;
       const passwordHash = bcrypt.hashSync(password, 10);
       const inputValue = [req.body.username, req.body.email, passwordHash];
+
 
       return db.query(queryString2, inputValue);
     })
