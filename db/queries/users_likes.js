@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 const getLikes = () => {
-  return db.query('SELECT COUNT(*) from users_likes GROUP BY resouce_id;')
+  return db.query('SELECT COUNT(*) from users_likes GROUP BY resource_id;')
     .then(data => {
       return data.rows;
     });
