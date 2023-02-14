@@ -36,7 +36,8 @@ const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
-const registration = require("./routes/submitRegister");
+const registerRoutes = require("./routes/submitRegister");
+const registPageRoutes = require("./routes/registPage");
 
 const profileRoutes = require("./routes/profileUpdate");
 
@@ -46,25 +47,20 @@ const profileRoutes = require("./routes/profileUpdate");
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
-app.use("/register", registration);
+app.use("/register", registerRoutes);
+app.use("./register", registPageRoutes);
 app.use("/profile", profileRoutes);
 // Note: mount other resources here, using the same pattern above
 
+// Home page
+// Warning: avoid creating more routes in this file!
+// Separate them into separate routes files (see above).
 // const pool = new Pool({
 //   user: "labber",
 //   password: "labber",
 //   host: "localhost",
 //   database: "midterm",
 // });
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-const pool = new Pool({
-  user: "labber",
-  password: "labber",
-  host: "localhost",
-  database: "midterm",
-});
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
@@ -77,36 +73,12 @@ app.get("/", (req, res) => {
   );
 });
 
+app.get("/:id/likes", (req, res) => {
+  res.render("likesPage");
+});
 app.get("/register", (req, res) => {
-  console.log(req.body);
   res.render("registration");
 });
-
-app.post("/register", (req, res) => {
-  console.log(req.body);
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
-
-  pool
-    .query(
-      `
-  INSERT INTO users (name,email,password)
-  VALUES($1,$2,$3)
-  RETURNING*;
-  `,
-      [name, email, password]
-    )
-    .then((result) => {
-      console.log(result.rows[0]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      return null;
-    });
-  res.redirect("/");
-});
-
 app.get("/login", (req, res) => {
   //established user variable with cookie
   // if (user) {
