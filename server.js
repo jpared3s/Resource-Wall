@@ -56,8 +56,9 @@ const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
+const registerRoutes = require("./routes/submitRegister");
+const registPageRoutes = require("./routes/registPage");
 
-const registration = require("./routes/submitRegister");
 
 
 const profileRoutes = require("./routes/profileUpdate");
@@ -73,7 +74,8 @@ const newRoutes = require("./routes/addResource");
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
-app.use("/register", registration);
+app.use("/register", registerRoutes);
+app.use("./register", registPageRoutes);
 app.use("/profile", profileRoutes);
 
 app.use("/login", loginRoutes);
@@ -85,21 +87,15 @@ app.use("/submitRegister", registration)
 
 // Note: mount other resources here, using the same pattern above
 
+// Home page
+// Warning: avoid creating more routes in this file!
+// Separate them into separate routes files (see above).
 // const pool = new Pool({
 //   user: "labber",
 //   password: "labber",
 //   host: "localhost",
 //   database: "midterm",
 // });
-// Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-const pool = new Pool({
-  user: "labber",
-  password: "labber",
-  host: "localhost",
-  database: "midterm",
-});
 
 
 // plug into Login later
@@ -117,10 +113,13 @@ app.get("/", (req, res) => {
   );
 });
 
+app.get("/:id/likes", (req, res) => {
+  res.render("likesPage");
+});
 app.get("/register", (req, res) => {
-  console.log(req.body);
   res.render("registration");
 });
+
 
 // app.post("/register", (req, res) => {
 //   console.log(req.body);
@@ -180,6 +179,16 @@ app.get("/register", (req, res) => {
 //     })
 //     .catch(err => console.error('query error', err.stack));
 // });
+
+app.get("/login", (req, res) => {
+  //established user variable with cookie
+  // if (user) {
+  //   res.redirect('/')
+  //   return;
+  // }
+  res.render("login");
+});
+
 
 
 //set id to cookie
