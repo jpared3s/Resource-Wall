@@ -17,15 +17,19 @@ app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
   console.log("get in there mate!");
-
-  // console.log(req)
   const templateVars = {
     // user: users[req.session.user_id],
-    user: req.session.user_id,
-    // urls: urlsForUser(req.session.user_id, urlDatabase),
+    user: {},
+    
   };
+  db.query(`SELECT * from users WHERE email = $1`, [req.session.user]).then((result) => {
+    let currentUser = result.rows[0];
+    templateVars.user = currentUser;
 
-  res.render('profileUpdate', templateVars);
+  }).catch((e) => console.log(e)).then(() => {
+    console.log(templateVars.user);
+    res.render('profileUpdate', templateVars);
+  } );
 });
 
 router.post('/updatepass', (req, res) => {

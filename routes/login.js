@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
         console.log(result);
         req.session.user = req.body.email;
-        req.session.user_id = user.id;
+        req.session.user_id = result.rows[0].id;
         res.redirect('/profile');
       } else {
         res.send('Error: invalid email or password');

@@ -83,7 +83,7 @@ app.use("/home", homeRoutes);
  // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
-app.use("/submitRegister", registration)
+app.use("/submitRegister", registPageRoutes)
 
 // Note: mount other resources here, using the same pattern above
 
