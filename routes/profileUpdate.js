@@ -30,20 +30,21 @@ router.get('/', (req, res) => {
 router.post('/updatepass', (req, res) => {
   console.log("I need a new password!");
   // console.log(req.body.new_password);
-  let bob = bcrypt.hashSync(req.body.new_password, 10);
-  console.log(bcrypt.compareSync(req.body.new_password, bob));
+  // let bob = bcrypt.hashSync(req.body.new_password, 10);
+  // console.log(bcrypt.compareSync(req.body.new_password, bob));
 
-  // pool.query(`SELECT * FROM users;`)
-  //   .then((res) => console.log(res.rows))
-  //   .catch((e) => console.log(e));
+  pool.query(`UPDATE users SET password = '${bcrypt.hashSync(req.body.new_password, 10)}' WHERE id = '${req.session.user_id}';`)
+    .then((res) => console.log(res))
+    .catch((e) => console.log(e));
   }
 );
 
 router.post('/', (req, res) => {
   console.log("new post incoming");
   console.log(req.body.email);
-  pool.query(`SELECT * FROM users;`)
-  .then((res) => console.log(res.rows))
+  req.session.user = req.body.email;
+  pool.query(`UPDATE users SET email = '${req.body.email}' WHERE id = '${req.session.user_id}';`)  
+  .then(() => console.log("email update success"))
   .catch((e) => console.log(e));
 
   // console.log(req)

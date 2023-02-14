@@ -42,7 +42,7 @@ const renderResources = (array, section) => {
 
   <footer>
     <div class = "comments_for_${resource.id}">
-      <button type="Submit" class="testbtn">Test</button>
+     ${renderComments([123])}
     </div>
     <div class="footer-icons">
       <i class="fa-regular fa-thumbs-up"></i>
@@ -51,5 +51,14 @@ const renderResources = (array, section) => {
   </footer>
 </article>
     `);
+  }
+}
+
+const renderComments = (array) => {
+  for (comment of array)  {
+    return `
+    ${comment}
+
+  `
   }
 }
