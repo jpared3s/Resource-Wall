@@ -10,7 +10,12 @@ const app = express();
 
 router.get("/", (req, res) => {
   console.log(req.body);
-  res.render('addResource');
+  const templateVars = {
+    // user: users[req.session.user_id],
+    user: req.session.user_id,
+
+  };
+  res.render('addResource', templateVars);
 });
 
 router.post("/", (req, res) => {

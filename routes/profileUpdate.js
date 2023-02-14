@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
   // console.log(req)
   const templateVars = {
     // user: users[req.session.user_id],
+    user: req.session.user_id,
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
 

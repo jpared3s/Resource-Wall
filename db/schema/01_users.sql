@@ -22,11 +22,12 @@ CREATE TABLE resources (
 
 DROP TABLE IF EXISTS reviews CASCADE;
 
-CREATE TABLE reviews(
+CREATE TABLE reviews (
   id SERIAL PRIMARY KEY NOT NULL,
   resource_id INTEGER REFERENCES resources(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  comment TEXT
+  comment TEXT,
+  rating INTEGER
 );
 
 DROP TABLE IF EXISTS users_resources CASCADE;
