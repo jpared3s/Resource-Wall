@@ -6,11 +6,19 @@ require("dotenv").config();
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
+
 const bcrypt = require("bcrypt");
 const cookieSession = require('cookie-session');
 
+
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1'],
+  maxAge: 24 * 60 * 60 * 1000
+}));
 
 app.set("view engine", "ejs");
 
@@ -29,6 +37,7 @@ app.use(
 );
 app.use(express.static("public"));
 
+
 app.use(cookieSession({
   name: 'session',
   keys: ['maplesyrup', 'beaver', 'lacrosse'],
@@ -40,16 +49,20 @@ app.use(cookieSession({
 const { Pool } = require("pg"); //importing the database connection
 
 
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
+
 const registration = require("./routes/submitRegister");
 
-const profileRoutes = require("./routes/profileUpdate");
 
+const profileRoutes = require("./routes/profileUpdate");
+const loginRoutes = require("./routes/login");
+const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
 
@@ -62,8 +75,14 @@ app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registration);
 app.use("/profile", profileRoutes);
+
+app.use("/login", loginRoutes);
+app.use("/home", homeRoutes);
+ // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
+
 app.use("/addResource", newRoutes);
 app.use("/submitRegister", registration)
+
 // Note: mount other resources here, using the same pattern above
 
 // const pool = new Pool({
@@ -128,43 +147,40 @@ app.get("/register", (req, res) => {
 //   res.redirect("/");
 // });
 
-app.get("/login", (req, res) => {
-  //established user variable with cookie
-  // if (user) {
-  //   res.redirect('/')
-  //   return;
-  // }
-  res.render("login");
-});
+// app.get('/login', (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render('login');
+// });
 
-app.post("/login", (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+// app.post('/login', (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
 
-  pool
-    .query(
-      `
-    SELECT *
-    FROM users
+//   pool.query(`
+//     SELECT *
+//     FROM users
+//     WHERE email = $1 AND password = $2;
+//     `, [email, password])
+//   //   WHERE email = $1;
+//   // `, [email])
+//     .then(result => {
 
-    WHERE email = $1;
-    `, [email])
-  //   WHERE email = $1;
-  // `, [email])
-    .then(result => {
+//       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+//        req.session.user = req.body.email;
+//        req.session.user_id = result.rows[0].id;
+//        console.log(req.session.user_id);
+//         res.redirect('/profile');
+//       } else {
+//         res.send('Error: invalid email or password');
+//       }
+//     })
+//     .catch(err => console.error('query error', err.stack));
+// });
 
-      if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-        req.session.user = req.body.email;
-        req.session.user_id = result.rows[0].id;
-        console.log(req.session.user_id);
-        res.redirect('/profile');
-
-      } else {
-        res.send("Error: invalid email or password");
-      }
-    })
-    .catch((err) => console.error("query error", err.stack));
-});
 
 //set id to cookie
 
