@@ -154,6 +154,9 @@ app.post("/login", (req, res) => {
     .then(result => {
 
       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+        req.session.user = req.body.email;
+        req.session.user_id = result.rows[0].id;
+        console.log(req.session.user_id);
         res.redirect('/profile');
 
       } else {

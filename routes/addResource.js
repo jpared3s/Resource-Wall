@@ -15,9 +15,9 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   console.log("posting incoming for resources :", req.body);
-  let values = [req.body.url, req.body.description, req.body.tags];
+  let values = [req.body.url, req.body.description, req.body.tags, req.session.user_id];
   return db.query(`
-  INSERT INTO resources (title, description, tags) VALUES ($1, $2, $3)
+  INSERT INTO resources (title, description, tags, owner_id) VALUES ($1, $2, $3, $4)
   RETURNING *;
   `,
   values).then((res) => {
