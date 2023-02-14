@@ -17,7 +17,9 @@ CREATE TABLE resources (
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
   tags VARCHAR(255) NOT NULL,
-  owner_id INT REFERENCES users(id) ON DELETE CASCADE
+  owner_id INT REFERENCES users(id) ON DELETE CASCADE,
+  alias VARCHAR(10)
+
 );
 
 DROP TABLE IF EXISTS reviews CASCADE;

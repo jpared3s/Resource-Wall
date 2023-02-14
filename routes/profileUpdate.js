@@ -4,7 +4,9 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const { Pool } = require('pg');
-const app = express()
+const app = express();
+const db = require("../db/connection");
+
 
 const pool = new Pool({
   user: 'labber',

@@ -68,6 +68,7 @@ const homeRoutes = require("./routes/home");
 const newRoutes = require("./routes/addResource");
 
 
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -189,7 +190,11 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-
+app.post("/logout", (req, res) => {
+  console.log(`logout request for : ${req.session.user}`);
+  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> res.redirect(`/login/`), 300);
+});
 
 //set id to cookie
 
