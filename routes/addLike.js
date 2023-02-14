@@ -48,7 +48,10 @@ const getLikes = (usersId) => {
 };
 
 router.get("/:id/likes", (req, res) => {
-  res.render("likesPage");
+  const templateVars = {
+    user: users[req.session.user_id],
+  };
+  res.render("likesPage", templateVars);
 });
 
 router.post("/:id/likes", (req, res) => {
