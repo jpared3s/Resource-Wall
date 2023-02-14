@@ -4,6 +4,11 @@ const { Pool } = require("pg");
 const app = express();
 const bcrypt = require("bcrypt");
 
+const db = require("../db/connection");
+const app = express();
+
+
+
 const pool = new Pool({
   user: "labber",
   password: "labber",
@@ -27,7 +32,9 @@ router.post("/register", (req, res) => {
       const passwordHash = bcrypt.hashSync(password, 10);
       const inputValue = [req.body.username, req.body.email, passwordHash];
 
+
       return pool.query(queryString2, inputValue);
+
     })
     .then((data) => {
       res.redirect("/login");
