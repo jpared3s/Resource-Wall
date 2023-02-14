@@ -8,10 +8,15 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
 const bcrypt = require('bcrypt');
-
-
+const cookieSession = require('cookie-session');
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1'],
+  maxAge: 24 * 60 * 60 * 1000
+}));
 
 app.set("view engine", "ejs");
 
@@ -31,17 +36,18 @@ app.use(
 app.use(express.static("public"));
 const { Pool } = require('pg');//importing the database connection
 
-const { pool } = require("pg");
+// const { pool } = require("pg");
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
-const registration = require("./routes/registration");
+// const registration = require("./routes/registration");
 
 const profileRoutes = require("./routes/profileUpdate");
-
+const loginRoutes = require("./routes/login");
+const homeRoutes = require("./routes/home");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -50,6 +56,9 @@ app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/profile", profileRoutes);
+app.use("/login", loginRoutes);
+app.use("/home", homeRoutes);
+ // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 // Note: mount other resources here, using the same pattern above
 
 // const pool = new Pool({
@@ -109,36 +118,36 @@ app.post("/register", (req, res) => {
   res.redirect("/");
 });
 
-app.get('/login', (req, res) => {
-  //established user variable with cookie
-  // if (user) {
-  //   res.redirect('/')
-  //   return;
-  // }
-  res.render('login');
-});
+// app.get('/login', (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render('login');
+// });
 
-app.post('/login', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+// app.post('/login', (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
 
-  pool.query(`
-    SELECT *
-    FROM users
-    WHERE email = $1 AND password = $2;
-    `, [email, password])
-  //   WHERE email = $1;
-  // `, [email])
-    .then(result => {
+//   pool.query(`
+//     SELECT *
+//     FROM users
+//     WHERE email = $1 AND password = $2;
+//     `, [email, password])
+//   //   WHERE email = $1;
+//   // `, [email])
+//     .then(result => {
 
-      if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-        res.redirect('/profile');
-      } else {
-        res.send('Error: invalid email or password');
-      }
-    })
-    .catch(err => console.error('query error', err.stack));
-});
+//       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+//         res.redirect('/profile');
+//       } else {
+//         res.send('Error: invalid email or password');
+//       }
+//     })
+//     .catch(err => console.error('query error', err.stack));
+// });
 
 //set id to cookie
 

@@ -29,9 +29,9 @@ router.get('/', (req, res) => {
     // user: users[req.session.user_id],
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
-  
+
   res.render('profileUpdate', templateVars);
-}); 
+});
 
 router.post('/updatepass', (req, res) => {
   console.log("I need a new password!");
@@ -57,9 +57,9 @@ router.post('/', (req, res) => {
     // user: users[req.session.user_id],
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
-  
+
   // res.render('profileUpdate', templateVars);
-}); 
+});
 
 
 // router.put('/:email', (req, res) => {
@@ -82,7 +82,7 @@ router.post('/', (req, res) => {
 //     WHERE id = currentuser
 //     `).then(() => {console.log("Update successful!")});
 //   }
-  
+
 //   */
 
 // });
@@ -105,7 +105,7 @@ router.post('/', (req, res) => {
 //     WHERE id = currentuser
 //     `).then(() => {console.log("Update successful!")});
 //   }
-  
+
 //   */
 
 // });
