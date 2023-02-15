@@ -33,7 +33,7 @@
   <%- include partials/_header.ejs %>
 
   <h3>
-        Viewing <a class = "url" id ="<%- uniqueID %>" href = "<%= resource.title %>"><%- resource.title %></a>
+        Viewing <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
   </h3>
   <p>
     <div>
@@ -45,7 +45,7 @@
       <% } %>
     </div>
   </p>
-  <form class="form-inline addComment" action="/resource/<%= resource.alias %>" method="POST">
+  <form class="form-inline addComment" action="/resource/<%= resource.id %>" method="POST">
     <p class = "messages fieldEmpty">
         Your comment cannot be empty!
     </p>
@@ -66,11 +66,10 @@
 
         </select>
       </p>
-      <p class="hiddenValues">
-        <%= resource.tags %>
+      <!-- <p class="hiddenValues">
         <label for="resourceID">Below should be the URL</label>
         <select name="resourceID" id="resourceID">
-          <option value="<%= resource.id %>">yes</option>
+          <option value="<%= resource.id %>"><%= resource.id %></option>
 
 
         </select>
@@ -78,11 +77,11 @@
       <p class="hiddenValues">
         <label for="user">Below should be userid</label>
         <select name="user" id="user">
-          <option value="<%= user.id %>">yes</option>
+          <option value="<%= user.id %>"><%= user.id %></option>
 
 
         </select>
-      </p>
+      </p> -->
       <button type="Submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
