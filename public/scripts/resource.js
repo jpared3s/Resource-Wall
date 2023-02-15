@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 
     $(".addComment").submit(function(event) {
-      event.preventDefault();
+      // event.preventDefault();
       let $form = $(this);
       let $commentBox = $form.find(".commentText");
       let $rating = $form.find("#rating");
