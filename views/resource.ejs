@@ -25,6 +25,7 @@
 
 
   <script defer src="/scripts/resource.js"></script>
+  <script defer src="/scripts/header.js"></script>
 </head>
 
 <body>
@@ -34,15 +35,20 @@
   <!-- <h1>Hello, <%%></h1> -->
   <%- include partials/_header.ejs %>
   <% if (resource) {%>
-  <h3>
-        Viewing <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
-  </h3>
+    <article>
+      
+      <h3>
+            Viewing <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
+      </h3>
+   
 
   <p>
     <div>
       <% for (let comment in comments) { %>
         <tr>
           <td><%= comments[comment].comment %></td>
+        </tr>
+        <tr>
           <td><%= comments[comment].rating %></td>
         </tr>
       <% } %>
@@ -81,6 +87,7 @@
       We're sorry, but this URL does not refer to any resources! Please check to make sure you have the correct URL.
 
     <% } %>
+  </article>
 
 </body>
 
