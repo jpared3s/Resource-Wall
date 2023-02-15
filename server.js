@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
 const bcrypt = require("bcrypt");
+var methodOverride = require("method-override");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -27,6 +28,7 @@ app.use(
   })
 );
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 const { Pool } = require("pg"); //importing the database connection
 
 const { pool } = require("pg");
@@ -36,11 +38,11 @@ const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
-const registerRoutes = require("./routes/submitRegister");
-const registPageRoutes = require("./routes/registPage");
+const registerRoutes = require("./routes/register");
 
 const profileRoutes = require("./routes/profileUpdate");
 
+const likesRoutes = require("./routes/likes");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -48,19 +50,13 @@ app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
-app.use("./register", registPageRoutes);
+app.use("/likes", likesRoutes);
 app.use("/profile", profileRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-// const pool = new Pool({
-//   user: "labber",
-//   password: "labber",
-//   host: "localhost",
-//   database: "midterm",
-// });
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
@@ -73,12 +69,6 @@ app.get("/", (req, res) => {
   );
 });
 
-app.get("/:id/likes", (req, res) => {
-  res.render("likesPage");
-});
-app.get("/register", (req, res) => {
-  res.render("registration");
-});
 app.get("/login", (req, res) => {
   //established user variable with cookie
   // if (user) {

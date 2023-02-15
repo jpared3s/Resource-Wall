@@ -7,6 +7,7 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
+
 );
 
 
@@ -18,6 +19,7 @@ CREATE TABLE resources (
   description VARCHAR(255) NOT NULL,
   tags VARCHAR(255) NOT NULL,
   owner_id INT REFERENCES users(id) ON DELETE CASCADE
+
 );
 
 DROP TABLE IF EXISTS reviews CASCADE;
@@ -27,6 +29,7 @@ CREATE TABLE reviews(
   resource_id INTEGER REFERENCES resources(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   comment TEXT
+  rating INTEGER
 );
 
 DROP TABLE IF EXISTS users_resources CASCADE;
