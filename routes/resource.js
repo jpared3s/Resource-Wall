@@ -1,16 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
 const bcrypt = require("bcrypt");
 const db = require("../db/connection");
 const app = express();
 
-
-
 router.get("/:id", (req, res) => {
   let values = [req.params.id];
   const templateVars = {
-    // user: users[req.session.user_id],
     user: {},
     resource: {},
     comments: {},
@@ -21,23 +17,25 @@ router.get("/:id", (req, res) => {
     // let currentUser = 
     let currentResource = result.rows[0];
     templateVars.resource = currentResource;
-    console.log("-------------------25-------------")
-    console.log(templateVars.resource)
+    // console.log("-------------------25-------------")
+    // console.log(templateVars.resource)
     templateVars.comments = result.rows;    
   })
   .catch((e) => console.log(e))
-  .then(db.query(`SELECT * from users WHERE email = $1`, [req.session.user]).then((result) => {
-    let currentUser = result.rows[0];
-    templateVars.user = currentUser;
-  }).then(() => {
-
-    res.render('resource', templateVars)
-  }
-
-  )
-    
-    
-  )
+    .then(
+      db.query(`SELECT * from users WHERE email = $1`, [req.session.user])
+      .then((result) => {
+        let currentUser = result.rows[0];
+        templateVars.user = currentUser;
+        // console.log("-------------------30----------");
+        // console.log(templateVars.resource);
+        res.render('resource', templateVars);
+      }).then(() => {
+        // console.log("-------------------32----------");
+        // console.log(templateVars.resource);
+      }
+      )
+    )
 
   // res.render('addResource', templateVars);
 })

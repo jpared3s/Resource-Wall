@@ -1,6 +1,8 @@
 $(document).ready(function() {
   console.log("I'm ready to add new comments!");
   $(".messages").slideUp(0);
+  $(".hiddenValues").slideUp(0);
+
 
     $(".addComment").submit(function(event) {
       event.preventDefault();

@@ -51,7 +51,10 @@ router.post('/', (req, res) => {
   console.log(req.body.email);
   req.session.user = req.body.email;
   pool.query(`UPDATE users SET email = '${req.body.email}' WHERE id = '${req.session.user_id}';`)  
-  .then(() => console.log("email update success"))
+  .then(() => {
+    console.log("email update success");
+    req.session
+  })
   .catch((e) => console.log(e));
 
   // console.log(req)
