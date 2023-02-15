@@ -66,6 +66,7 @@ const loginRoutes = require("./routes/login");
 const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
+const resourceRoutes = require("./routes/resource")
 
 
 // Mount all resource routes
@@ -83,7 +84,10 @@ app.use("/home", homeRoutes);
  // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
-// app.use("/submitRegister", registration)
+
+app.use("/submitRegister", registPageRoutes);
+app.use("/resource", resourceRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 
@@ -189,9 +193,19 @@ app.get("/register", (req, res) => {
 //   res.render("login");
 // });
 
-
+app.post("/logout", (req, res) => {
+  console.log(`logout request for : ${req.session.user}`);
+  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> res.redirect(`/login/`), 300);
+});
 
 //set id to cookie
+
+// app.post("/resource"), (req, res) => {
+//   let values = [req.body];
+//   console.log(req.body);
+//   res.send("okay");
+// }
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
