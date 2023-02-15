@@ -194,7 +194,7 @@ app.get("/register", (req, res) => {
 
 app.post("/logout", (req, res) => {
   console.log(`logout request for : ${req.session.user}`);
-  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> req.session = null, 100);
   setTimeout(()=> res.redirect(`/login/`), 300);
 });
 

@@ -57,7 +57,7 @@ router.get("/:id", (req, res) => {
     uniqueID: req.params.id,
   };
 
-  db.query(`SELECT resources.id, title, description, tags, owner_id, alias from resources LEFT JOIN reviews ON resource_id = resources.id WHERE alias = $1 ;`, values)
+  db.query(`SELECT * from resources LEFT JOIN reviews ON resource_id = resources.id WHERE alias = $1 ;`, values)
     .then((result) => {
       if (result.rowCount === "0") {
         pageExists = false;

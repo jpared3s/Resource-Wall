@@ -1,6 +1,8 @@
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   flex-wrap: wrap;
   background: #a3d0db;
