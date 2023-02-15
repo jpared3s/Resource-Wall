@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
@@ -31,10 +33,11 @@
   <ul id="users"></ul> -->
   <!-- <h1>Hello, <%%></h1> -->
   <%- include partials/_header.ejs %>
-
+  <% if (resource) {%>
   <h3>
         Viewing <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
   </h3>
+
   <p>
     <div>
       <% for (let comment in comments) { %>
@@ -46,6 +49,7 @@
     </div>
   </p>
   <form class="form-inline addComment" action="/resource/<%= resource.id %>" method="POST">
+
     <p class = "messages fieldEmpty">
         Your comment cannot be empty!
     </p>
@@ -66,22 +70,6 @@
 
         </select>
       </p>
-      <!-- <p class="hiddenValues">
-        <label for="resourceID">Below should be the URL</label>
-        <select name="resourceID" id="resourceID">
-          <option value="<%= resource.id %>"><%= resource.id %></option>
-
-
-        </select>
-      </p>
-      <p class="hiddenValues">
-        <label for="user">Below should be userid</label>
-        <select name="user" id="user">
-          <option value="<%= user.id %>"><%= user.id %></option>
-
-
-        </select>
-      </p> -->
       <button type="Submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
@@ -89,6 +77,11 @@
   <!-- <p class="rjtest">
     <button type="Submit" class="testbtn">Test</button>
   </p> -->
+  <% } else {%>
+      We're sorry, but this URL does not refer to any resources! Please check to make sure you have the correct URL.
+
+    <% } %>
+
 </body>
 
 </html>
