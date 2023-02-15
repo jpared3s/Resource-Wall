@@ -16,10 +16,21 @@
   <div class = header>
   <h1>Resource-Wall</h1>
   </div>
+  <div id ="search">
+    <form>
+      <input type="text" name="query" placeholder="Search">
+      <button type="submit">Submit</button>
+     </form>
+     <button class="btn" onclick="window.location.href='/review'">Add A Review</button>
+  </div>
   <div class="container">
-    <button class="btn" onclick="window.location.href='/login/login'">Login</button>
+    <button class="btn" onclick="window.location.href='/login'">Login</button>
     <button class="btn" onclick="window.location.href='/register'">Register</button>
  </div>
-
+ <ul>
+  <% resources.forEach((resource) => { %>
+      <li><%= resource.title %> - <%= parseFloat(resource.rating).toFixed(2) %> - <%= resource.likes %> </li>
+  <% }); %>
+</ul>
 </body>
 </html>

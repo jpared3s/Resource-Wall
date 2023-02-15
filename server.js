@@ -84,8 +84,10 @@ app.use("/home", homeRoutes);
  // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
+
 app.use("/submitRegister", registPageRoutes);
 app.use("/resource", resourceRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 
@@ -182,14 +184,14 @@ app.get("/register", (req, res) => {
 //     .catch(err => console.error('query error', err.stack));
 // });
 
-app.get("/login", (req, res) => {
-  //established user variable with cookie
-  // if (user) {
-  //   res.redirect('/')
-  //   return;
-  // }
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render("login");
+// });
 
 app.post("/logout", (req, res) => {
   console.log(`logout request for : ${req.session.user}`);
