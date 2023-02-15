@@ -5,7 +5,6 @@ const app = express();
 const bcrypt = require("bcrypt");
 
 const db = require("../db/connection");
-const app = express();
 
 
 

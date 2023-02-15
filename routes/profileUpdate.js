@@ -4,7 +4,9 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const { Pool } = require('pg');
-const app = express()
+const app = express();
+const db = require("../db/connection");
+
 
 const pool = new Pool({
   user: 'labber',
@@ -17,14 +19,19 @@ app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
   console.log("get in there mate!");
-
-  // console.log(req)
   const templateVars = {
     // user: users[req.session.user_id],
-    // urls: urlsForUser(req.session.user_id, urlDatabase),
+    user: {},
+    
   };
+  db.query(`SELECT * from users WHERE email = $1`, [req.session.user]).then((result) => {
+    let currentUser = result.rows[0];
+    templateVars.user = currentUser;
 
-  res.render('profileUpdate', templateVars);
+  }).catch((e) => console.log(e)).then(() => {
+    console.log(templateVars.user);
+    res.render('profileUpdate', templateVars);
+  } );
 });
 
 router.post('/updatepass', (req, res) => {
@@ -44,7 +51,10 @@ router.post('/', (req, res) => {
   console.log(req.body.email);
   req.session.user = req.body.email;
   pool.query(`UPDATE users SET email = '${req.body.email}' WHERE id = '${req.session.user_id}';`)  
-  .then(() => console.log("email update success"))
+  .then(() => {
+    console.log("email update success");
+    req.session
+  })
   .catch((e) => console.log(e));
 
   // console.log(req)
