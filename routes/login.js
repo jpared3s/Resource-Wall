@@ -3,6 +3,7 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const { Pool } = require('pg');
+const db = require('../db/connection');
 const app = express()
 
 const pool = new Pool({
@@ -21,8 +22,12 @@ router.get('/', (req, res) => {
     res.redirect("/home");
   } else {
     const templateVars = {
-      user: users[req.session["user_id"]],
-      message: ""
+      user: {
+        email: req.session.user,
+        id: req.session.user_id
+      }
+      // user: users[req.session["user_id"]],
+      // message: ""
     };
     res.render('login', templateVars);
   }
@@ -36,15 +41,14 @@ router.post('/', (req, res) => {
   pool.query(`
     SELECT *
     FROM users
-    WHERE email = $1 AND password = $2;
-    `, [email, password])
-  //   WHERE email = $1;
-  // `, [email])
+    WHERE email = $1;
+    `, [email])
     .then(result => {
 
       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-        console.log(result)
-        // req.session.user_id = user.id;
+        console.log(result);
+        req.session.user = req.body.email;
+        req.session.user_id = result.rows[0].id;
         res.redirect('/profile');
       } else {
         res.send('Error: invalid email or password');

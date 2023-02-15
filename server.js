@@ -8,12 +8,11 @@ const express = require("express");
 const morgan = require("morgan");
 
 const bcrypt = require("bcrypt");
-<<<<<<< HEAD
+
 var methodOverride = require("method-override");
-=======
+
 const cookieSession = require('cookie-session');
 
->>>>>>> 1a459f9eb37a1006db7152839ed39a3e160d1505
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -40,9 +39,9 @@ app.use(
   })
 );
 app.use(express.static("public"));
-<<<<<<< HEAD
+
 app.use(methodOverride("_method"));
-=======
+
 
 
 app.use(cookieSession({
@@ -53,7 +52,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
->>>>>>> 1a459f9eb37a1006db7152839ed39a3e160d1505
+
 const { Pool } = require("pg"); //importing the database connection
 
 
@@ -73,6 +72,7 @@ const loginRoutes = require("./routes/login");
 const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
+const resourceRoutes = require("./routes/resource")
 
 
 const likesRoutes = require("./routes/likes");
@@ -91,7 +91,10 @@ app.use("/home", homeRoutes);
  // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
-app.use("/submitRegister", registration)
+
+app.use("/submitRegister", registPageRoutes);
+app.use("/resource", resourceRoutes);
+
 
 // Note: mount other resources here, using the same pattern above
 
@@ -115,8 +118,7 @@ app.get("/", (req, res) => {
   );
 });
 
-<<<<<<< HEAD
-=======
+
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
@@ -124,67 +126,6 @@ app.get("/register", (req, res) => {
   res.render("registration");
 });
 
-
-// app.post("/register", (req, res) => {
-//   console.log(req.body);
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   pool
-//     .query(
-//       `
-//   INSERT INTO users (name,email,password)
-//   VALUES($1,$2,$3)
-//   RETURNING*;
-//   `,
-//       [name, email, password]
-//     )
-//     .then((result) => {
-//       console.log(result.rows[0]);
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//       return null;
-//     });
-//   res.redirect("/");
-// });
-
-// app.get('/login', (req, res) => {
-//   //established user variable with cookie
-//   // if (user) {
-//   //   res.redirect('/')
-//   //   return;
-//   // }
-//   res.render('login');
-// });
-
-// app.post('/login', (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   pool.query(`
-//     SELECT *
-//     FROM users
-//     WHERE email = $1 AND password = $2;
-//     `, [email, password])
-//   //   WHERE email = $1;
-//   // `, [email])
-//     .then(result => {
-
-//       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-//        req.session.user = req.body.email;
-//        req.session.user_id = result.rows[0].id;
-//        console.log(req.session.user_id);
-//         res.redirect('/profile');
-//       } else {
-//         res.send('Error: invalid email or password');
-//       }
-//     })
-//     .catch(err => console.error('query error', err.stack));
-// });
-
->>>>>>> 1a459f9eb37a1006db7152839ed39a3e160d1505
 app.get("/login", (req, res) => {
   //established user variable with cookie
   // if (user) {
@@ -195,8 +136,28 @@ app.get("/login", (req, res) => {
 });
 
 
+// app.get("/login", (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render("login");
+// });
+
+app.post("/logout", (req, res) => {
+  console.log(`logout request for : ${req.session.user}`);
+  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> res.redirect(`/login/`), 300);
+});
 
 //set id to cookie
+
+// app.post("/resource"), (req, res) => {
+//   let values = [req.body];
+//   console.log(req.body);
+//   res.send("okay");
+// }
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
