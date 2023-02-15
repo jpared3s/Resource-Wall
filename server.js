@@ -8,6 +8,9 @@ const express = require("express");
 const morgan = require("morgan");
 
 const bcrypt = require("bcrypt");
+
+var methodOverride = require("method-override");
+
 const cookieSession = require('cookie-session');
 
 
@@ -37,6 +40,9 @@ app.use(
 );
 app.use(express.static("public"));
 
+app.use(methodOverride("_method"));
+
+
 
 app.use(cookieSession({
   name: 'session',
@@ -45,6 +51,7 @@ app.use(cookieSession({
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
 
 const { Pool } = require("pg"); //importing the database connection
 
@@ -56,8 +63,7 @@ const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
 
 const usersRoutes = require("./routes/users");
-const registerRoutes = require("./routes/submitRegister");
-const registPageRoutes = require("./routes/registPage");
+const registerRoutes = require("./routes/register");
 
 
 
@@ -69,6 +75,7 @@ const newRoutes = require("./routes/addResource");
 const resourceRoutes = require("./routes/resource")
 
 
+const likesRoutes = require("./routes/likes");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -76,7 +83,7 @@ app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
-app.use("./register", registPageRoutes);
+app.use("/likes", likesRoutes);
 app.use("/profile", profileRoutes);
 
 app.use("/login", loginRoutes);
@@ -94,12 +101,6 @@ app.use("/resource", resourceRoutes);
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-// const pool = new Pool({
-//   user: "labber",
-//   password: "labber",
-//   host: "localhost",
-//   database: "midterm",
-// });
 
 
 // plug into Login later
@@ -117,6 +118,7 @@ app.get("/", (req, res) => {
   );
 });
 
+
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
@@ -124,65 +126,15 @@ app.get("/register", (req, res) => {
   res.render("registration");
 });
 
+app.get("/login", (req, res) => {
+  //established user variable with cookie
+  // if (user) {
+  //   res.redirect('/')
+  //   return;
+  // }
+  res.render("login");
+});
 
-// app.post("/register", (req, res) => {
-//   console.log(req.body);
-//   const name = req.body.name;
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   pool
-//     .query(
-//       `
-//   INSERT INTO users (name,email,password)
-//   VALUES($1,$2,$3)
-//   RETURNING*;
-//   `,
-//       [name, email, password]
-//     )
-//     .then((result) => {
-//       console.log(result.rows[0]);
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//       return null;
-//     });
-//   res.redirect("/");
-// });
-
-// app.get('/login', (req, res) => {
-//   //established user variable with cookie
-//   // if (user) {
-//   //   res.redirect('/')
-//   //   return;
-//   // }
-//   res.render('login');
-// });
-
-// app.post('/login', (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   pool.query(`
-//     SELECT *
-//     FROM users
-//     WHERE email = $1 AND password = $2;
-//     `, [email, password])
-//   //   WHERE email = $1;
-//   // `, [email])
-//     .then(result => {
-
-//       if (result.rows.length > 0 && bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-//        req.session.user = req.body.email;
-//        req.session.user_id = result.rows[0].id;
-//        console.log(req.session.user_id);
-//         res.redirect('/profile');
-//       } else {
-//         res.send('Error: invalid email or password');
-//       }
-//     })
-//     .catch(err => console.error('query error', err.stack));
-// });
 
 // app.get("/login", (req, res) => {
 //   //established user variable with cookie

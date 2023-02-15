@@ -33,24 +33,32 @@ const getLikes = (usersId) => {
   return (
     pool
       .query(
-        `SELECT users.username, resource_id FROM users
-          INNER JOIN users_likes ON users.id = users_likes.user_id
-          INNER JOIN resources ON user_likes.resource_id = resources.id
-          WHERE users.id = $1;
-
-      `,
+        `SELECT * FROM resources JOIN users_likes ON resource_id = resources.id WHERE user_id = $1`,
         [usersId]
       )
+
       // returns newly created like - this may be unnecessary
       .then((result) => result.rows)
+
       .catch((err) => err.message)
   );
 };
 
 router.get("/:id/likes", (req, res) => {
+  const userId = req.params;
+  const likesResource = getLikes(userId);
   const templateVars = {
-    user: users[req.session.user_id],
+    user: {},
+    resource: {},
+    comments: {},
+    uniqueID: req.params.id,
   };
+  db.query(
+    `SELECT username, users.id FROM users
+    INNER JOIN users_likes ON users.id = users_likes.user_id
+    WHERE user_likes.resource_id = $1`,
+    values
+  ).then((result) => {});
   res.render("likesPage", templateVars);
 });
 
@@ -64,4 +72,4 @@ router.post("/:id/likes", (req, res) => {
     });
 });
 
-module.exports = { addLike, getLikes, router };
+module.exports = router;
