@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Viewing Resource</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <script defer src="/scripts/resource.js"></script>
+</head>
+
+<body>
+  <!-- <h1>Users</h1>
+  <button id="fetch-users">Fetch Users via AJAX</button>
+  <ul id="users"></ul> -->
+  <!-- <h1>Hello, <%%></h1> -->
+  <%- include partials/_header.ejs %>
+
+  <h3>
+        Viewing <a class = "url" id ="<%- uniqueID %>" href = "<%- resource.title %>"><%- resource.title %></a>
+  </h3>
+  <p>
+    <div>
+      <% for (let comment in comments) { %>
+        <tr>
+          <td><%= comments[comment].comment %></td>
+          <td><%= comments[comment].rating %></td>
+        </tr>
+      <% } %>
+    </div>
+  </p>
+  <form class="form-inline addComment" action="/resource/<%= resource.alias %>" method="POST">
+    <p class = "messages fieldEmpty">
+        Your comment cannot be empty!
+    </p>
+    <div class="form-group mb-2">
+      <label for="addNewResource">Enter new comment here</label>
+      <p>      
+        <input class="form-control commentText" type="text" name="comment" placeholder="I like this resource because" style="width: 300px; margin: 1em" />
+      </p>
+
+      <p>
+        <label for="rating">Choose a rating from 1 to 5, with 5 being the highest:</label>
+        <select name="rating" id="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+
+        </select>
+      </p>
+      <p>
+        <%= resource.tags %>
+        <label for="resourceID">Below should be the URL</label>
+        <select name="resourceID" id="resourceID">
+          <option value="<%= resource.id %>">yes</option>
+
+
+        </select>
+      </p>
+      <p>
+        <label for="user">Below should be userid</label>
+        <select name="user" id="user">
+          <option value="<%= user.id %>">yes</option>
+
+
+        </select>
+      </p>
+      <button type="Submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  <!-- // code below is for testing, delete later -->
+  <!-- <p class="rjtest">
+    <button type="Submit" class="testbtn">Test</button>
+  </p> -->
+</body>
+
+</html>
