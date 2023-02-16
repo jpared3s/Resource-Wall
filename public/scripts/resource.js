@@ -28,6 +28,10 @@ $(document).ready(function () {
   let $star3 = $form.find(".star3");
   let $star4 = $form.find(".star4");
   let $star5 = $form.find(".star5");
+  let $twoStar = $form.find(".firstTwo");
+  let $threeStar = $form.find(".firstThree");
+  let $fourStar = $form.find(".firstFour");
+  let $allStar = $form.find(".fa-star");
 
   $star1.on("mouseenter", () => {
     $star1.addClass("yellow");
@@ -38,120 +42,85 @@ $(document).ready(function () {
   });
 
   $star2.on("mouseenter", () => {
-    $star1.addClass("yellow");
-    $star2.addClass("yellow");
+    $twoStar.addClass("yellow");
   });
 
   $star2.on("mouseleave", () => {
-    $star1.removeClass("yellow");
-    $star2.removeClass("yellow");
+    $twoStar.removeClass("yellow");
   });
 
   $star3.on("mouseenter", () => {
-    $star1.addClass("yellow");
-    $star2.addClass("yellow");
-    $star3.addClass("yellow");
+    $threeStar.addClass("yellow");
   });
 
   $star3.on("mouseleave", () => {
-    $star1.removeClass("yellow");
-    $star2.removeClass("yellow");
-    $star3.removeClass("yellow");
+    $threeStar.removeClass("yellow");
   });
 
   $star4.on("mouseenter", () => {
-    $star1.addClass("yellow");
-    $star2.addClass("yellow");
-    $star3.addClass("yellow");
-    $star4.addClass("yellow");
+    $fourStar.addClass("yellow");
   });
 
   $star4.on("mouseleave", () => {
-    $star1.removeClass("yellow");
-    $star2.removeClass("yellow");
-    $star3.removeClass("yellow");
-    $star4.removeClass("yellow");
+    $fourStar.removeClass("yellow");
   });
 
   $star5.on("mouseenter", () => {
-    $star1.addClass("yellow");
-    $star2.addClass("yellow");
-    $star3.addClass("yellow");
-    $star4.addClass("yellow");
-    $star5.addClass("yellow");
+    $allStar.addClass("yellow")
   });
 
   $star5.on("mouseleave", () => {
-    $star1.removeClass("yellow");
-    $star2.removeClass("yellow");
-    $star3.removeClass("yellow");
-    $star4.removeClass("yellow");
-    $star5.removeClass("yellow");
+    $allStar.removeClass("yellow");    
   });
 
   $star1.on("click", (event) => {
     event.preventDefault();
-    let $commentBox = $form.find(".commentText");
-    let $rating = $form.find("#rating");
     let parameter = $("body").find(".url").attr('id');
     console.log(parameter);
     $(".messages").slideUp(0);
 
     let payload = $form.serialize() + '&rating=' + 1;
-    console.log(payload);
-    $.post(`/resource/${parameter}`, payload).done(() => location.reload()).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+    submission(parameter, payload);
 
   });
   $star2.on("click", (event) => {
     event.preventDefault();
-    let $commentBox = $form.find(".commentText");
-    let $rating = $form.find("#rating");
     let parameter = $("body").find(".url").attr('id');
     console.log(parameter);
     $(".messages").slideUp(0);
 
     let payload = $form.serialize() + '&rating=' + 2;
-    console.log(payload);
-    $.post(`/resource/${parameter}`, payload).done(() => location.reload()).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+    submission(parameter, payload);
 
   });
   $star3.on("click", (event) => {
     event.preventDefault();
-    let $commentBox = $form.find(".commentText");
-    let $rating = $form.find("#rating");
     let parameter = $("body").find(".url").attr('id');
     console.log(parameter);
     $(".messages").slideUp(0);
 
     let payload = $form.serialize() + '&rating=' + 3;
-    console.log(payload);
-    $.post(`/resource/${parameter}`, payload).done(() => location.reload()).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+    submission(parameter, payload);
 
   });
   $star4.on("click", (event) => {
     event.preventDefault();
-    let $commentBox = $form.find(".commentText");
-    let $rating = $form.find("#rating");
     let parameter = $("body").find(".url").attr('id');
     console.log(parameter);
     $(".messages").slideUp(0);
 
     let payload = $form.serialize() + '&rating=' + 4;
-    console.log(payload);
-    $.post(`/resource/${parameter}`, payload).done(() => location.reload()).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+    submission(parameter, payload);
 
   });
   $star5.on("click", (event) => {
     event.preventDefault();
-    let $commentBox = $form.find(".commentText");
-    let $rating = $form.find("#rating");
     let parameter = $("body").find(".url").attr('id');
     console.log(parameter);
     $(".messages").slideUp(0);
 
     let payload = $form.serialize() + '&rating=' + 5;
-    console.log(payload);
-    $.post(`/resource/${parameter}`, payload).done(() => location.reload()).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+    submission(parameter, payload);
 
   });
 
@@ -176,6 +145,10 @@ $(document).ready(function () {
 
 
 });
+
+const submission = (route, data)=>{
+  $.post(`/resource/${route}`, data).done(() => location.reload()).fail(() => alert("Something went wrong when posting your rating! Please refresh your page and try again."));
+}
 
 const renderResources = (array, section) => {
   for (let resource of array) {
