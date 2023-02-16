@@ -4,16 +4,15 @@ const db = require("../db/connection");
 
 
 router.get("/", (req, res) => {
-  db.query(`SELECT id, title, description, tags FROM resources`)
+  db.query(`SELECT  title, description, tags, ROUND(avg(rating), 1) as avg_rating FROM resources LEFT JOIN reviews on resources.id = resource_id GROUP BY title, description, tags`)
   .then((results) => {
     res.send(results.rows);
   })
 });
 
 router.get("/tags/:id", (req, res) => {
-  console.log(req.params.id);
   let values = [`%${req.params.id}%`];
-  db.query(`SELECT id, title, description, tags FROM resources WHERE tags LIKE $1 ;`, values)
+  db.query(`SELECT  title, description, tags, ROUND(avg(rating), 1) as avg_rating FROM resources LEFT JOIN reviews on resources.id = resource_id  WHERE tags LIKE $1 GROUP BY title, description, tags;`, values)
   .then((results) => {
     res.send(results.rows);
   })

@@ -91,7 +91,7 @@ app.use("/home", homeRoutes);
 
 app.use("/addResource", newRoutes);
 
-app.use("/submitRegister", registPageRoutes);
+// app.use("/submitRegister", registPageRoutes);
 app.use("/resource", resourceRoutes);
 
 

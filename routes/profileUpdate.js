@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
     templateVars.user = currentUser;
 
   }).catch((e) => console.log(e)).then(() => {
-    console.log(templateVars.user);
+    // console.log(templateVars.user);
     res.render('profileUpdate', templateVars);
   } );
 });
@@ -37,14 +37,32 @@ router.get('/', (req, res) => {
 router.post('/updatepass', (req, res) => {
   console.log("I need a new password!");
   // console.log(req.body.new_password);
-  // let bob = bcrypt.hashSync(req.body.new_password, 10);
   // console.log(bcrypt.compareSync(req.body.new_password, bob));
+  let currentPass = req.body.current_password;
+  pool.query(`select * from users WHERE email = $1;`, [req.session.user]).then((result) => {
 
-  pool.query(`UPDATE users SET password = '${bcrypt.hashSync(req.body.new_password, 10)}' WHERE id = '${req.session.user_id}';`)
-    .then((res) => console.log(res))
-    .catch((e) => console.log(e));
+    if (bcrypt.compareSync(currentPass, result.rows[0].password)) { 
+      let values = [bcrypt.hashSync(req.body.new_password, 10), req.session.user_id];
+      // console.log(values);
+
+      pool.query(`UPDATE users SET password = $1 WHERE id = $2 returning *;`, values)
+        .then((result) => {
+          console.log(result);
+          return res.json(result.rows[0])
+        
+        })
+        .catch((e) => console.log(e));
+  
+      
+    } else {
+      console.log(`53: password no bueno`)
+      return res.send("sorry, wrong password!");
+    }
+
   }
-);
+  
+  )
+});
 
 router.post('/', (req, res) => {
   console.log("new post incoming");
@@ -53,7 +71,8 @@ router.post('/', (req, res) => {
   pool.query(`UPDATE users SET email = '${req.body.email}' WHERE id = '${req.session.user_id}';`)  
   .then(() => {
     console.log("email update success");
-    req.session
+    // req.session.user = req.body.email;
+    res.send("update successful")
   })
   .catch((e) => console.log(e));
 
