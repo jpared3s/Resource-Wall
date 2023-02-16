@@ -7,6 +7,7 @@ CREATE TABLE users (
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
+
 );
 
 
@@ -19,6 +20,7 @@ CREATE TABLE resources (
   tags VARCHAR(255) NOT NULL,
   owner_id INT REFERENCES users(id) ON DELETE CASCADE,
   alias VARCHAR(10)
+
 
 );
 

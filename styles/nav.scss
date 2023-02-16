@@ -1,0 +1,39 @@
+.fa-square-pied-piper {
+  color: white; /* change the color of the icon */
+  font-size: 2rem; /* change the size of the icon */
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4056A1;
+  height: 120px;
+  width: 100vw;
+  color: #FFFFFF;
+  padding: 0 1.5em;
+  position: fixed;
+  top: 0;
+}
+
+nav .nav-icon {
+  margin-right: 4rem;
+}
+
+nav .nav-title {
+  font-size: 1.5rem;
+}
+
+nav .click-here {
+  display: flex;
+  align-items: center;
+}
+
+nav .click-here .container {
+  display: flex;
+  align-items: center;
+}
+
+nav .click-here button {
+  margin-left: 1rem;
+}
