@@ -6,9 +6,19 @@ require("dotenv").config();
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
+<<<<<<< HEAD
 const cookieSession = require('cookie-session');
 const bcrypt = require("bcrypt");
 var methodOverride = require("method-override");
+=======
+
+const bcrypt = require("bcrypt");
+
+var methodOverride = require("method-override");
+
+const cookieSession = require('cookie-session');
+
+>>>>>>> 9439d3ad0e9685b5ad33114e7d2853e9c79a9821
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -35,7 +45,24 @@ app.use(
   })
 );
 app.use(express.static("public"));
+<<<<<<< HEAD
 app.use(methodOverride("_method"));
+=======
+
+app.use(methodOverride("_method"));
+
+
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['maplesyrup', 'beaver', 'lacrosse'],
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+
+
+>>>>>>> 9439d3ad0e9685b5ad33114e7d2853e9c79a9821
 const { Pool } = require("pg"); //importing the database connection
 
 // Separated Routes for each Resource
@@ -51,6 +78,7 @@ const loginRoutes = require("./routes/login");
 const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
+const resourceRoutes = require("./routes/resource")
 
 const likesRoutes = require("./routes/likes");
 // Mount all resource routes
@@ -68,7 +96,14 @@ app.use("/home", homeRoutes);
 // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
+<<<<<<< HEAD
 app.use("/register", registerRoutes);
+=======
+
+app.use("/submitRegister", registPageRoutes);
+app.use("/resource", resourceRoutes);
+
+>>>>>>> 9439d3ad0e9685b5ad33114e7d2853e9c79a9821
 
 // Note: mount other resources here, using the same pattern above
 
@@ -90,6 +125,17 @@ app.get("/", (req, res) => {
   );
 });
 
+<<<<<<< HEAD
+=======
+
+app.get("/:id/likes", (req, res) => {
+  res.render("likesPage");
+});
+app.get("/register", (req, res) => {
+  res.render("registration");
+});
+
+>>>>>>> 9439d3ad0e9685b5ad33114e7d2853e9c79a9821
 app.get("/login", (req, res) => {
   //established user variable with cookie
   // if (user) {
@@ -99,7 +145,32 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+<<<<<<< HEAD
+=======
+
+// app.get("/login", (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render("login");
+// });
+
+app.post("/logout", (req, res) => {
+  console.log(`logout request for : ${req.session.user}`);
+  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> res.redirect(`/login/`), 300);
+});
+
+>>>>>>> 9439d3ad0e9685b5ad33114e7d2853e9c79a9821
 //set id to cookie
+
+// app.post("/resource"), (req, res) => {
+//   let values = [req.body];
+//   console.log(req.body);
+//   res.send("okay");
+// }
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

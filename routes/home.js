@@ -12,18 +12,79 @@ const pool = new Pool({
   database: 'midterm'
 });;
 
+
 app.use(methodOverride('_method'));
 
-router.get('/', (req, res) => {
- const recentResource = pool.query(`SELECT * FROM resources LIMIT 5`)
- const templateVars = {
-  resources: recentResource,
-  title: "Recent Resources"
-};
+// router.get('/', (req, res) => {
+//   pool.query(`SELECT * FROM resources LIMIT 5`)
+//     .then((result) => {
+//       console.log(result.rows);
+//       const templateVars = {
+//         resources: result.rows,
+//         title: "Recent Resources"
+//       };
+//       res.render('home', templateVars);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send("Error retrieving recent resources");
+//     });
+// });
 
-res.render('home', templateVars);
+router.get('/', (req, res) => {
+  pool.query(`
+    SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
+    FROM resources
+    LEFT JOIN reviews ON resources.id = reviews.resource_id
+    LEFT JOIN users_likes ON resources.id = users_likes.resource_id
+    GROUP BY resources.id
+    ORDER BY resources.id
+    LIMIT 5;
+  `)
+    .then((result) => {
+      console.log(result.rows);
+      const templateVars = {
+        resources: result.rows,
+        title: "Recent Resources",
+        user: {
+          email: req.session.user,
+          id: req.session.user_id
+        }
+      };
+      res.render('home', templateVars);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving recent resources");
+    });
 });
 
+//search query (lightBnb)
+router.post('/search', (req, res) => {
+  const input = req.body.query
+  pool.query(`
+    SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
+    FROM resources
+    LEFT JOIN reviews ON resources.id = reviews.resource_id
+    LEFT JOIN users_likes ON resources.id = users_likes.resource_id
+    WHERE tags LIKE $1
+    GROUP BY resources.id
+    ORDER BY resources.id
+    LIMIT 5;
+  `, [`%${input}%`])
+    .then((result) => {
+      console.log(result.rows);
+      const templateVars = {
+        resources: result.rows,
+        title: "Recent Resources"
+      };
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving recent resources");
+    });
+});
 
 
 module.exports = router;
