@@ -16,11 +16,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log("registration...");
-  console.log(req.body);
-
-  // 데이터 베이스 저장 - user table!!
-  // 중복확인!! 이미 가입했는지!!
   const queryForCheckingDuplicate = "SELECT email FROM users WHERE email = $1;";
   pool
     .query(queryForCheckingDuplicate, [req.body.email])
