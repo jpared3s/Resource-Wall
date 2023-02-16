@@ -110,11 +110,12 @@ app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
   // const comments = require("./data/comments.json");
 
-  res.render(
-    "index"
-    // resources,
-    // comments,
-  );
+  // res.render(
+  //   "index"
+  //   // resources,
+  //   // comments,
+  // );
+  res.redirect("/home");
 });
 
 

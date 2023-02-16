@@ -65,7 +65,7 @@
           <tr>
             <td><%= comments[comment].comment %></td>
           </tr>
-          <tr>
+          <tr class = "stars">
             <td>Rating: 
               <% if (comments[comment].rating === 1) { %>
                 <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
@@ -88,8 +88,8 @@
       </div>
       <% } %>
   </p>
-  <form class="form-inline addComment">
-    <!-- <form class="form-inline addComment" action="/resource/<%= resource.id %>" method="POST"> -->
+  <!-- <form class="form-inline addComment">
+
 
     <p class = "messages fieldEmpty">
         Your comment cannot be empty!
@@ -112,6 +112,26 @@
         </select>
       </p>
       <button type="Submit" class="btn btn-primary">Submit Rating</button>
+    </div>
+  </form> -->
+  <form class="form-inline addComment">
+
+
+    <p class = "messages fieldEmpty">
+        Your comment cannot be empty!
+    </p>
+    <div class="form-group mb-2">
+      <label for="addNewComment">Enter new comment here (optional)</label>
+      <p>      
+        <input class="form-control commentText" type="text" name="comment" placeholder="Please tell us what you think about this resource" />
+      </p>
+
+      <p>
+        <label for="rating">Choose a rating from 1 to 5, with 5 being the highest:</label>
+        <i class="fa-solid fa-star star1"></i><i class="fa-solid fa-star star2"></i><i class="fa-solid fa-star star3"></i><i class="fa-solid fa-star star4"></i><i class="fa-solid fa-star star5"></i>
+      </p>
+
+      <!-- <button type="Submit" class="btn btn-primary">Submit Rating</button> -->
     </div>
   </form>
   <!-- // code below is for testing, delete later -->

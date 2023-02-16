@@ -23,6 +23,12 @@ body {
     .userComment {
       margin-top: 5px;
       border-style: double;
+      .fa-star {
+        color: yellow;
+      }
+      // .fa-star:hover {
+      //   color: green;
+      // }
     }
     .commentText {
       padding: 11px 0px 11px 0px;
@@ -37,6 +43,9 @@ body {
     form {
       background: $tie-at-home;
       border-style: ridge;
+      .yellow {
+        color:yellow;
+      }
     }
     
   }
