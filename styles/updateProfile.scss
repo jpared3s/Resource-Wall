@@ -1,0 +1,47 @@
+body {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: unset;
+  article {
+    width: 90%;
+    h3 {
+      justify-content: center;
+    display: flex;
+    }
+  }
+  .emailUpdater {
+    border-style: double;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+  .passwordUpdater {
+    border-style: double;
+    width: 100%;
+    align-items: center;
+
+  }
+  .addNewResource{
+    border-style: double;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    label {
+        justify-content: center;
+        display: flex;
+      }
+    
+    p {
+      justify-content: center;
+      display: flex;
+    }
+    button {
+      justify-content: center;
+      display: flex;
+    }
+    }
+
+}

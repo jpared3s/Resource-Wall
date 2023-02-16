@@ -22,22 +22,24 @@ router.get('/', (req, res) => {
       console.error(err);
       res.status(500).send('Error fetching user');
       return;
+    } else {
+
+      // if (result.rows.length === 0) {
+      //   res.redirect('/login');
+      //   return;
+      // }
+  
+      const user = result.rows[0];
+      const templateVars = {
+  
+        user: {
+          email: req.session.user,
+          id: req.session.user_id
+        }
+      };
+      res.render('login', templateVars);
     }
 
-    if (result.rows.length === 0) {
-      res.redirect('/login');
-      return;
-    }
-
-    const user = result.rows[0];
-    const templateVars = {
-
-      user: {
-        email: req.session.user,
-        id: req.session.user_id
-      }
-    };
-    res.render('login', templateVars);
   });
 });
 

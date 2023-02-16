@@ -1,7 +1,10 @@
+$tie-at-home: cornflowerblue;
+
 header {
   display: flex;
   margin-top: 0%;
   width: 100%;
+  background-color: $tie-at-home;
   nav {
     display: flex;
     width: 100%;
@@ -10,7 +13,7 @@ header {
   }
   /* Dropdown Button */
 .dropbtn {
-  background-color: #3498DB;
+  background-color: #92c2e2;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -20,6 +23,7 @@ header {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
+  cursor: pointer;
   background-color: #2980B9;
 }
 

@@ -44,7 +44,7 @@
       </h3>
    
 
-  <p>
+  <!-- <p>
     <% for (let comment in comments) { %>
       <div class = "userComment">
         <table>
@@ -57,9 +57,39 @@
         </table>
       </div>
       <% } %>
+  </p> -->
+  <p>
+    <% for (let comment in comments) { %>
+      <div class = "userComment">
+        <table>
+          <tr>
+            <td><%= comments[comment].comment %></td>
+          </tr>
+          <tr class = "stars">
+            <td>Rating: 
+              <% if (comments[comment].rating === 1) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 2) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 3) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 4) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+            <% if (comments[comment].rating === 5) { %>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <% } %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <% } %>
   </p>
-  <form class="form-inline addComment">
-    <!-- <form class="form-inline addComment" action="/resource/<%= resource.id %>" method="POST"> -->
+  <!-- <form class="form-inline addComment">
+
 
     <p class = "messages fieldEmpty">
         Your comment cannot be empty!
@@ -82,6 +112,26 @@
         </select>
       </p>
       <button type="Submit" class="btn btn-primary">Submit Rating</button>
+    </div>
+  </form> -->
+  <form class="form-inline addComment">
+
+
+    <p class = "messages fieldEmpty">
+        Your comment cannot be empty!
+    </p>
+    <div class="form-group mb-2">
+      <label for="addNewComment">Enter new comment here (optional)</label>
+      <p>      
+        <input class="form-control commentText" type="text" name="comment" placeholder="Please tell us what you think about this resource" />
+      </p>
+
+      <p>
+        <label for="rating">Choose a rating from 1 to 5, with 5 being the highest:</label>
+        <i class="fa-solid fa-star firstFour star1 firstTwo firstThree"></i><i class="fa-solid fa-star firstFour star2 firstTwo firstThree"></i><i class="fa-solid fa-star firstFour star3 firstThree"></i><i class="fa-solid fa-star firstFour star4"></i><i class="fa-solid fa-star star5"></i>
+      </p>
+
+      <!-- <button type="Submit" class="btn btn-primary">Submit Rating</button> -->
     </div>
   </form>
   <!-- // code below is for testing, delete later -->
