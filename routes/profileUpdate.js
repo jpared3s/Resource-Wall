@@ -55,8 +55,9 @@ router.post('/updatepass', (req, res) => {
   
       
     } else {
-      console.log(`53: password no bueno`)
-      return res.send("sorry, wrong password!");
+      console.log(`53: password no bueno`);
+      res.status(500).send("Sorry, your current password did not match our records, please try again!");
+      // res.send("sorry, wrong password!");
     }
 
   }

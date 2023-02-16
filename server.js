@@ -121,9 +121,9 @@ app.get("/", (req, res) => {
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
-app.get("/register", (req, res) => {
-  res.render("registration");
-});
+// app.get("/register", (req, res) => {
+//   res.render("registration");
+// });
 
 app.get("/login", (req, res) => {
   //established user variable with cookie

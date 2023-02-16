@@ -20,6 +20,7 @@ header {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
+  cursor: pointer;
   background-color: #2980B9;
 }
 

@@ -5,13 +5,12 @@ $(document).ready(function() {
 
 
     $(".addComment").submit(function(event) {
-      // event.preventDefault();
+      event.preventDefault();
       let $form = $(this);
       let $commentBox = $form.find(".commentText");
       let $rating = $form.find("#rating");
       // let $parameter = $("body").find(".url")//.attr('href');
       let parameter = $("body").find(".url").attr('id');
-
       console.log(parameter);
       $(".messages").slideUp(0);
       // let $url = $form.find(".url");
@@ -20,7 +19,7 @@ $(document).ready(function() {
       } else {
         console.log($form.serialize());
         // $(".addSuccess").slideDown(200);
-        $.post(`/resource/${parameter}`, $form.serialize()).done(() => console.log("posting success")).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
+        $.post(`/resource/${parameter}`, $form.serialize()).done(() => alert("posting success")).fail(() => alert("Something went wrong when posting your comment! Please refresh your page and try again."));
       }  
     });
 

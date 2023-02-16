@@ -1,4 +1,22 @@
 body {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: unset;
+  .emailUpdater {
+    border-style: double;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      // justify-content: end;
+    }
+  }
+  .passwordUpdater {
+    border-style: double;
+    width: 100%;
+    align-items: center;
+
+  }
 }

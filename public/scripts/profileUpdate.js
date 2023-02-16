@@ -63,13 +63,16 @@ $(document).ready(function() {
 
     }
     if (newPassValidator($password.val(),$confirmation.val()) === "valid") {
-      $(".passwordSuccess").slideDown(200);
       
       $.post("profile/updatepass", $form.serialize())
       .done(function() {
+        $(".passwordSuccess").slideDown(200);
         console.log("posting done line 237~~~~~~");
       })
-      // .fail(() => alert("Something went wrong when posting your tweet! Please refresh your page and try again."));
+      .fail((error) =>{
+        alert(error.responseText);
+      });
+      // .fail(() => alert("Something went wrong when updating your password! Please refresh your page and try again."));
     }
     $current.val("")
     $password.val("");

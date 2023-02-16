@@ -44,7 +44,7 @@
       </h3>
    
 
-  <p>
+  <!-- <p>
     <% for (let comment in comments) { %>
       <div class = "userComment">
         <table>
@@ -53,6 +53,36 @@
           </tr>
           <tr>
             <td>Rating: <%= comments[comment].rating %> / 5</td>
+          </tr>
+        </table>
+      </div>
+      <% } %>
+  </p> -->
+  <p>
+    <% for (let comment in comments) { %>
+      <div class = "userComment">
+        <table>
+          <tr>
+            <td><%= comments[comment].comment %></td>
+          </tr>
+          <tr>
+            <td>Rating: 
+              <% if (comments[comment].rating === 1) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 2) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 3) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 4) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+            <% if (comments[comment].rating === 5) { %>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <% } %>
+            </td>
           </tr>
         </table>
       </div>

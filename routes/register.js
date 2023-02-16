@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
           "INSERT INTO users (username,email,password) VALUES($1,$2,$3) RETURNING*;";
         pool
           .query(queryForInsertUser, [
-            "test-user",
+            req.body.username,
             req.body.email,
             passwordHash,
           ])
