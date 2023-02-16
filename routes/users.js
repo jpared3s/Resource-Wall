@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
     // user: users[req.session.user_id],
     // urls: urlsForUser(req.session.user_id, urlDatabase),
   };
-  
+
   res.render('users', templateVars);
-}); 
+});
 
 router.put('/', (req, res) => {
   console.log(req.params.body);
@@ -40,7 +40,7 @@ router.put('/', (req, res) => {
     WHERE id = currentuser
     `).then(() => {console.log("Update successful!")});
   }
-  
+
   */
 
 });

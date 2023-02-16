@@ -35,9 +35,10 @@ router.post("/", (req, res) => {
   INSERT INTO resources (title, description, tags, owner_id, ALIAS) VALUES ($1, $2, $3, $4, $5)
   RETURNING *;
   `,
-  values).then((res) => {
-    return res.rows[0];
-  }).catch(e => res.send(e));
+  values).then((result) => {
+    
+    return res.json(result.rows[0]);
+  }).catch(e => result.send(e));
   
 });
 

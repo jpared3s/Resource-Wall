@@ -1,0 +1,104 @@
+/* Desktop */
+/* Set margin and padding to 0 to avoid unwanted space */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set a minimum height for the body */
+body {
+  min-height: 100vh;
+}
+
+/* Style the header */
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+
+/* Style the search form */
+#search {
+  margin: 1em 0;
+  text-align: center;
+}
+
+#search input[type="text"] {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+#search button[type="submit"] {
+  padding: 0.5em 1em;
+  font-size: 1em;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style the container */
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 1em 0;
+}
+
+.container button {
+  margin: 0 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style the recent submissions */
+.recent-submissions {
+  margin: 1em 0;
+  padding: 1em;
+  border: 3px solid white;
+  border-radius: 4px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 550px;
+}
+
+.recent-submissions {
+  box-shadow: 10px 5px gray;
+}
+
+.recent-submissions button {
+  margin-left: 1em;
+}
+
+.fa-pen-to-square:hover{
+  color: #c99926;
+  content: "Submit A Review";
+}
+
+.fa-thumbs-up:hover{
+  color: #c99926
+}
+
+.fa-star:hover{
+  color: #c99926
+}
+
+.fa-thumbs-up{
+  color: #4056A1
+}
+
+.fa-star{
+  color: #4056A1
+}
+
+.fa-pen-to-square{
+  color: #4056A1
+}
+
