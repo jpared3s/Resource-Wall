@@ -7,11 +7,9 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
 
-const bcrypt = require("bcrypt");
-
-var methodOverride = require("method-override");
-
 const cookieSession = require('cookie-session');
+const bcrypt = require("bcrypt");
+var methodOverride = require("method-override");
 
 
 const PORT = process.env.PORT || 8080;
@@ -40,6 +38,7 @@ app.use(
 );
 app.use(express.static("public"));
 
+
 app.use(methodOverride("_method"));
 
 
@@ -51,6 +50,7 @@ app.use(cookieSession({
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
 
 
 const { Pool } = require("pg"); //importing the database connection
@@ -72,7 +72,6 @@ const newRoutes = require("./routes/addResource");
 const resourceRoutes = require("./routes/resource");
 const db = require("./db/connection");
 
-
 const likesRoutes = require("./routes/likes");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -87,12 +86,14 @@ app.use("/profile", profileRoutes);
 
 app.use("/login", loginRoutes);
 app.use("/home", homeRoutes);
- // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
+// http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
 
-// app.use("/submitRegister", registPageRoutes);
+
+app.use("/submitRegister", registPageRoutes);
 app.use("/resource", resourceRoutes);
+
 
 
 // Note: mount other resources here, using the same pattern above
@@ -101,10 +102,8 @@ app.use("/resource", resourceRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-
 // plug into Login later
 // req.session.user_id = req.body.email;
-
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
@@ -119,12 +118,14 @@ app.get("/", (req, res) => {
 });
 
 
+
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
 // app.get("/register", (req, res) => {
 //   res.render("registration");
 // });
+
 
 app.get("/login", (req, res) => {
   //established user variable with cookie
@@ -150,6 +151,15 @@ app.post("/logout", (req, res) => {
   setTimeout(()=> req.session = null, 100);
   setTimeout(()=> res.redirect(`/login/`), 300);
 });
+
+//set id to cookie
+
+// app.post("/resource"), (req, res) => {
+//   let values = [req.body];
+//   console.log(req.body);
+//   res.send("okay");
+// }
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
