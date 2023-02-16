@@ -55,24 +55,22 @@ app.use(cookieSession({
 
 const { Pool } = require("pg"); //importing the database connection
 
-
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
+const resourceApiRoutes = require("./routes/resources-api");
 
 const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
-
-
 
 const profileRoutes = require("./routes/profileUpdate");
 const loginRoutes = require("./routes/login");
 const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
-const resourceRoutes = require("./routes/resource")
+const resourceRoutes = require("./routes/resource");
+const db = require("./db/connection");
 
 
 const likesRoutes = require("./routes/likes");
@@ -81,6 +79,7 @@ const likesRoutes = require("./routes/likes");
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
+app.use("/api/resources", resourceApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
 app.use("/likes", likesRoutes);
@@ -147,17 +146,9 @@ app.get("/login", (req, res) => {
 
 app.post("/logout", (req, res) => {
   console.log(`logout request for : ${req.session.user}`);
-  setTimeout(()=> req.session.user_id = null, 100);
+  setTimeout(()=> req.session = null, 100);
   setTimeout(()=> res.redirect(`/login/`), 300);
 });
-
-//set id to cookie
-
-// app.post("/resource"), (req, res) => {
-//   let values = [req.body];
-//   console.log(req.body);
-//   res.send("okay");
-// }
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
