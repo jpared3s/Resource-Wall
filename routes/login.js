@@ -15,17 +15,26 @@ const pool = new Pool({
 app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
-  const user_id = req.session['user_id'];//find out name of the cookie
-  // const user = users[user_id]; //get user object from database
-  if (user_id) {
-    res.redirect("/home");
-  } else {
+  const user_id = req.session['user_id'];
+  pool.query('SELECT * FROM users WHERE id = $1', [user_id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching user');
+      return;
+    }
+
+    if (result.rows.length === 0) {
+      res.redirect('/login');
+      return;
+    }
+
+    const user = result.rows[0];
     const templateVars = {
-      // user: users[req.session["user_id"]],
-      // message: ""
+      user: user,
+      message: ''
     };
     res.render('login', templateVars);
-  }
+  });
 });
 
 

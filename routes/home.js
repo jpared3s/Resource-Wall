@@ -57,6 +57,7 @@ router.get('/', (req, res) => {
 
 //search query (lightBnb)
 router.post('/search', (req, res) => {
+  console.log(req.body)
   const input = req.body.query
   pool.query(`
     SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
@@ -74,7 +75,7 @@ router.post('/search', (req, res) => {
         resources: result.rows,
         title: "Recent Resources"
       };
-      res.json(result.rows);
+      res.json(result.rows)
     })
     .catch((err) => {
       console.error(err);
