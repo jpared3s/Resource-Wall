@@ -12,25 +12,29 @@ router.get("/:id", (req, res) => {
     comments: {},
     uniqueID: req.params.id,
   };
-  db.query(`SELECT resources.id, title, description, tags, owner_id, alias from resources LEFT JOIN reviews ON resource_id = resources.id WHERE alias = $1;`, values)
+  db.query(`SELECT * from users WHERE email = $1`, [req.session.user])
   .then((result) => {
+    let currentUser = result.rows[0];
+        templateVars.user = currentUser;
+        console.log("line 19:")
+        console.log(currentUser);
     // let currentUser = 
-    let currentResource = result.rows[0];
-    templateVars.resource = currentResource;
-    // console.log("-------------------25-------------")
-    // console.log(templateVars.resource)
-    templateVars.comments = result.rows;    
+  
   })
   .catch((e) => console.log(e))
     .then(
-      db.query(`SELECT * from users WHERE email = $1`, [req.session.user])
+      db.query(`SELECT resources.id, title, description, tags, owner_id, alias from resources LEFT JOIN reviews ON resource_id = resources.id WHERE alias = $1 ;`, values)
       .then((result) => {
-        let currentUser = result.rows[0];
-        templateVars.user = currentUser;
+        let currentResource = result.rows[0];
+        templateVars.resource = currentResource;
+        // console.log("-------------------25-------------")
+        // console.log(templateVars.resource)
+        templateVars.comments = result.rows;  
+        return templateVars
         // console.log("-------------------30----------");
         // console.log(templateVars.resource);
+      }).then((templateVars) => {
         res.render('resource', templateVars);
-      }).then(() => {
         // console.log("-------------------32----------");
         // console.log(templateVars.resource);
       }
@@ -41,13 +45,17 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/:id", (req, res) => {
-  console.log(req.body)
-  let values = [req.body.user, req.body.resourceID, req.body.comment, req.body.rating];
+  // console.log(req.body);
+  console.log("line 47")
+  console.log(req.session)
+  let values = [req.session.user_id, req.params.id, req.body.comment, req.body.rating];
   console.log(values);
-  db.query(`INSERT into reviews (resource_id, user_id, comment, rating) values ($1, $2, $3, $4) RETURNING *;`, values).then((res) => {
+
+  db.query(`INSERT into reviews (user_id, resource_id, comment, rating) values ($1, $2, $3, $4) RETURNING *;`, values).then((res) => {
     // res.send("okay");
     return res.rows[0];
   })
+
 })
 
  

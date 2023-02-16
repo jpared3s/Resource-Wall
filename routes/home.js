@@ -45,7 +45,11 @@ router.get('/', (req, res) => {
       console.log(result.rows);
       const templateVars = {
         resources: result.rows,
-        title: "Recent Resources"
+        title: "Recent Resources",
+        user: {
+          email: req.session.user,
+          id: req.session.user_id
+        }
       };
       res.render('home', templateVars);
     })

@@ -3,6 +3,7 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const { Pool } = require('pg');
+const db = require('../db/connection');
 const app = express()
 
 const pool = new Pool({
@@ -30,8 +31,11 @@ router.get('/', (req, res) => {
 
     const user = result.rows[0];
     const templateVars = {
-      user: user,
-      message: ''
+
+      user: {
+        email: req.session.user,
+        id: req.session.user_id
+      }
     };
     res.render('login', templateVars);
   });
