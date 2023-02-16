@@ -88,14 +88,14 @@ router.get("/:id", (req, res) => {
 
 router.post("/:id", (req, res) => {
   // console.log(req.body);
-  console.log("line 47")
-  console.log(req.session)
+  // console.log("line 47")
+  // console.log(req.session)
   let values = [req.session.user_id, req.params.id, req.body.comment, req.body.rating];
   console.log(values);
 
-  db.query(`INSERT into reviews (user_id, resource_id, comment, rating) values ($1, $2, $3, $4) RETURNING *;`, values).then((res) => {
+  db.query(`INSERT into reviews (user_id, resource_id, comment, rating) values ($1, $2, $3, $4) RETURNING *;`, values).then((result) => {
     // res.send("okay");
-    return res.rows[0];
+    return res.json(result.rows[0]);
   })
 
 })
