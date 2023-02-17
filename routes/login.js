@@ -14,7 +14,6 @@ const pool = new Pool({
 });;
 
 app.use(methodOverride('_method'));
-
 router.get('/', (req, res) => {
   const user_id = req.session['user_id'];
   pool.query('SELECT * FROM users WHERE id = $1', [user_id], (err, result) => {
@@ -23,19 +22,23 @@ router.get('/', (req, res) => {
       res.status(500).send('Error fetching user');
       return;
     }
-
     if (result.rows.length === 0) {
-      res.redirect('/login');
+      const templateVars = {
+        user: {
+          email: null,
+          id: null
+        }
+      };
+      res.render('login', templateVars);
       return;
     }
-
-    const user = result.rows[0];
+    const user = result.rows[0];//not using
     const templateVars = {
-
       user: {
-        email: req.session.user,
-        id: req.session.user_id
+        email: user.email,
+        id: user.id
       }
+
     };
     res.render('login', templateVars);
   });

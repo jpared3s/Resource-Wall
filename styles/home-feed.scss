@@ -21,13 +21,35 @@ body {
 
 /* Style the search form */
 #search {
-  margin: 1em 0;
-  text-align: center;
+  // margin: 1em 0;
+  // text-align: center;
+  // border: white
+  // display: flex;
+  // flex-direction: column;
+  // width: 400px;
+  // margin: 0 auto;
+  // margin-top: 50px;
+  // padding: 20px;
+  // background-color: #4056A1;
+  // border-radius: 10px;
+}
+
+#search-box{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 25px auto;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #4056A1;
+  border-radius: 10px;
+  align-items: center;
 }
 
 #search input[type="text"] {
   padding: 0.5em;
   font-size: 1em;
+  width: 100%
 }
 
 #search button[type="submit"] {
@@ -60,16 +82,17 @@ body {
 .recent-submissions {
   margin: 1em 0;
   padding: 1em;
-  border: 3px solid white;
+  border: 3px solid #4056A1;
   border-radius: 4px;
   list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 550px;
+  width: 800px;
+  background-color: white;
 }
 
-.recent-submissions {
+.recent-submissions:hover {
   box-shadow: 10px 5px gray;
 }
 
@@ -100,5 +123,32 @@ body {
 
 .fa-pen-to-square{
   color: #4056A1
+}
+
+#user-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 15%
+}
+
+.fa-user {
+  color: #4056A1;
+}
+
+#search-box #search-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 60%;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#search-box #search-button:hover {
+  background-color: #0056b3;
 }
 
