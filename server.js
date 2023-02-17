@@ -89,6 +89,14 @@ app.use("/home", homeRoutes);
 
 app.use("/addResource", newRoutes);
 
+
+
+
+// app.use("/submitRegister", registerPageRoutes);
+
+// app.use("/submitRegister", registPageRoutes);
+
+
 app.use("/resource", resourceRoutes);
 
 
@@ -99,18 +107,18 @@ app.use("/resource", resourceRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// plug into Login later
-// req.session.user_id = req.body.email;
+
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
   // const comments = require("./data/comments.json");
 
-  res.render(
-    "index"
-    // resources,
-    // comments,
-  );
+  // res.render(
+  //   "index"
+  //   // resources,
+  //   // comments,
+  // );
+  res.redirect("/home");
 });
 
 
@@ -118,19 +126,19 @@ app.get("/", (req, res) => {
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
-app.get("/register", (req, res) => {
-  res.render("registration");
-});
+// app.get("/register", (req, res) => {
+//   res.render("registration");
+// });
 
 
-app.get("/login", (req, res) => {
-  //established user variable with cookie
-  // if (user) {
-  //   res.redirect('/')
-  //   return;
-  // }
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render("login");
+// });
 
 
 // app.get("/login", (req, res) => {

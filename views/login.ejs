@@ -10,18 +10,30 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
+  <link rel="stylesheet" href="/styles/nav.css"/>
+  <link rel="stylesheet" href="/styles/login.css"/>
+  <link rel="stylesheet" href="/styles/header.css"/>
+
+
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <script src="/scripts/header.js"></script>
+
   <title>Login Page</title>
 </head>
 <body>
   <%- include partials/_header.ejs %>
-
-  <h1>Login</h1>
   <h3>Please login below</h3>
   <div class = login_input>
   <form method="POST" action="/login">
-      <input type="email" name="email" id="email">
-      <input type="password" name="password" id="password">
+      <input type="email" name="email" id="email" placeholder="Email">
+      <input type="password" name="password" id="password" placeholder="Password">
       <input type="submit" name="submit">
+      <i class="fab fa-square-pied-piper"></i>
   </form>
 </div>
 </body>

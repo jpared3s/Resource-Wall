@@ -1,5 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success">
+
     <a class="navbar-brand" href="/">Home</a>
     <button
       class="navbar-toggler"
@@ -10,6 +11,8 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
+
+ 
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -31,12 +34,17 @@
       </div>
     </div>
 
-    <% if(user.email !== ""){ %> You are currently logged in as: <%= user.email
-    %>
-    <form class="form-inline" action="/logout" method="POST">
-      <div class="form-group mb-2">
-        <% } else{ %>
-        <form class="form-inline" action="/login" method="GET">
+
+
+
+    <% if(user && user.email){ %>
+
+
+
+
+      You are currently logged in as: <%= user.email %>
+        <form class="form-inline" action="/logout" method="POST">
+
           <div class="form-group mb-2">
             <button type="submit" class="btn btn-primary">Login</button>
           </div>
@@ -53,11 +61,20 @@
       </div>
     </form>
 
-    <form class="form-inline" action="/register" method="GET">
-      <div class="form-group mb-2">
-        <button type="submit" class="btn btn-primary">Register</button>
-      </div>
-    </form>
-    <% } %>
+
+        <% } else { %>
+          <form class="form-inline" action="/login" method="GET">
+            <div class="form-group mb-2">
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+
+          <form class="form-inline" action="/register" method="GET">
+            <div class="form-group mb-2">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+          <% } %>
+
   </nav>
 </header>
