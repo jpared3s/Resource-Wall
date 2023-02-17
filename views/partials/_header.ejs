@@ -1,8 +1,18 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success">
-    <a class="navbar-brand" href="/"><i class="fab fa-square-pied-piper"> Resource-Wall</i></a>
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+    <a class="navbar-brand" href="/">Home</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+
+ 
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -11,15 +21,19 @@
         <a class="nav-item nav-link" href="/profile">Update Profile</a>
         <a class="nav-item nav-link" href="/addResource">Add New Resource</a>
       </div>
-    </div> -->
+    </div>
+    -->
     <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn"><i class="fa-solid fa-bars"></i></button>
+      <button onclick="myFunction()" class="dropbtn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
       <div id="myDropdown" class="dropdown-content">
         <a class="nav-item nav-link" href="/likes">My Resources</a>
         <a class="nav-item nav-link" href="/profile">Update Profile</a>
         <a class="nav-item nav-link" href="/addResource">Add New Resource</a>
       </div>
     </div>
+
 
 
 
@@ -30,13 +44,22 @@
 
       You are currently logged in as: <%= user.email %>
         <form class="form-inline" action="/logout" method="POST">
+
           <div class="form-group mb-2">
-
-
-            <button type="submit" class="btn btn-primary">Logout</button>
+            <button type="submit" class="btn btn-primary">Login</button>
           </div>
         </form>
 
+        <button type="submit" class="btn btn-primary">Logout</button>
+      </div>
+    </form>
+
+    <% } else { %>
+    <form class="form-inline" action="/login" method="GET">
+      <div class="form-group mb-2">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
 
 
         <% } else { %>
@@ -52,5 +75,6 @@
             </div>
           </form>
           <% } %>
+
   </nav>
 </header>

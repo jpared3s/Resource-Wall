@@ -13,13 +13,15 @@ router.get("/", (req, res) => {
   const email = req.session.user;
   console.log("id: ", id);
   const likeResources = `SELECT user_id, resource_id, resources.title,resources.description,resources.tags FROM users_likes LEFT JOIN resources ON users_likes.resource_id = resources.id WHERE user_id = $1;`;
-  return db.query(likeResources, [1]).then((result) => {
+  return db.query(likeResources, [id]).then((result) => {
     let resources = result.rows;
 
     console.log("resources: ", resources);
     res.render("likesPage", {
-      email: email,
-      id: id,
+      user: {
+        email: email,
+        id: id,
+      },
       resources: resources,
     });
   });

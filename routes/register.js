@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 router.get("/", (req, res) => {
-  res.render("registration");
+  res.render("registration", { error: "" });
 });
 
 router.post("/", (req, res) => {
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
           ])
           .then((result) => {
             console.log(result);
-            res.render("login");
+            res.redirect("/login");
           })
           .catch((err) => {
             console.log(err);

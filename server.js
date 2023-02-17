@@ -15,11 +15,13 @@ var methodOverride = require("method-override");
 const PORT = process.env.PORT || 8080;
 const app = express();
 
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1'],
-  maxAge: 24 * 60 * 60 * 1000
-}));
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1"],
+    maxAge: 24 * 60 * 60 * 1000,
+  })
+);
 
 app.set("view engine", "ejs");
 
@@ -38,20 +40,17 @@ app.use(
 );
 app.use(express.static("public"));
 
-
 app.use(methodOverride("_method"));
 
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["maplesyrup", "beaver", "lacrosse"],
 
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['maplesyrup', 'beaver', 'lacrosse'],
-
-  // Cookie Options
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}));
-
-
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  })
+);
 
 const { Pool } = require("pg"); //importing the database connection
 
@@ -92,9 +91,11 @@ app.use("/addResource", newRoutes);
 
 
 
+
 // app.use("/submitRegister", registerPageRoutes);
 
 // app.use("/submitRegister", registPageRoutes);
+
 
 app.use("/resource", resourceRoutes);
 

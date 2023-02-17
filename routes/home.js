@@ -1,19 +1,18 @@
-const express = require('express');
-const router  = express.Router();
-const bcrypt = require('bcrypt');
-const methodOverride = require('method-override');
-const { Pool } = require('pg');
-const app = express()
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcrypt");
+const methodOverride = require("method-override");
+const { Pool } = require("pg");
+const app = express();
 
 const pool = new Pool({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  database: 'midterm'
-});;
+  user: "labber",
+  password: "labber",
+  host: "localhost",
+  database: "midterm",
+});
 
-
-app.use(methodOverride('_method'));
+app.use(methodOverride("_method"));
 
 // router.get('/', (req, res) => {
 //   pool.query(`SELECT * FROM resources LIMIT 5`)
@@ -43,6 +42,7 @@ router.get('/', (req, res) => {
   LIMIT 5)as t
   JOIN users ON users.id = t.owner_id;
   `)
+
     .then((result) => {
       console.log(result.rows);
       const templateVars = {
@@ -50,13 +50,13 @@ router.get('/', (req, res) => {
         title: "Recent Resources",
         user: {
           email: req.session.user,
-          id: req.session.user_id
-        }
+          id: req.session.user_id,
+        },
       };
-      res.render('home', templateVars);
+      res.render("home", templateVars);
     })
     .catch((err) => {
-      console.error(err);
+      console.error(err.message);
       res.status(500).send("Error retrieving recent resources");
     });
 });
@@ -66,6 +66,7 @@ router.post('/search', (req, res) => {
   console.log(req.body)
   const input = req.body.query
   pool.query(`
+
   SELECT t.*, users.username
   FROM (SELECT resources.*,COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
   FROM resources
@@ -77,11 +78,12 @@ router.post('/search', (req, res) => {
   LIMIT 5)as t
   JOIN users ON users.id = t.owner_id;
   `, [`%${input}%`])
+
     .then((result) => {
       console.log(result.rows);
       const templateVars = {
         resources: result.rows,
-        title: "Recent Resources"
+        title: "Recent Resources",
       };
       res.json(result.rows)
     })
@@ -90,6 +92,5 @@ router.post('/search', (req, res) => {
       res.status(500).send("Error retrieving recent resources");
     });
 });
-
 
 module.exports = router;
