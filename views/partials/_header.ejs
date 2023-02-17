@@ -22,7 +22,11 @@
     </div>
 
 
-    <% if(user.email !== null){ %>
+
+    <% if(user && user.email){ %>
+
+
+
 
       You are currently logged in as: <%= user.email %>
         <form class="form-inline" action="/logout" method="POST">

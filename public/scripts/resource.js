@@ -1,7 +1,6 @@
 $(document).ready(function () {
   console.log("I'm ready to add new comments!");
   $(".messages").slideUp(0);
-  $(".hiddenValues").slideUp(0);
 
 
   // $(".addComment").submit(function(event) {
@@ -32,6 +31,26 @@ $(document).ready(function () {
   let $threeStar = $form.find(".firstThree");
   let $fourStar = $form.find(".firstFour");
   let $allStar = $form.find(".fa-star");
+  let $thumb = $(".fa-thumbs-up");
+
+  $thumb.on("mouseenter", () => {
+    $thumb.addClass("fa-solid");
+    $thumb.removeClass("fa-regular");
+  });
+
+  $thumb.on("mouseleave", () => {
+    $thumb.addClass("fa-regular");
+    $thumb.removeClass("fa-solid");
+  });
+
+  $thumb.on("click", () => {
+    let parameter = $("body").find(".url").attr('id');
+    $.post(`/resource/${parameter}/like`)
+      .done(() => {
+        alert("You have liked this resource")
+      })
+      .fail((err) => alert(err));
+  })
 
   $star1.on("mouseenter", () => {
     $star1.addClass("yellow");

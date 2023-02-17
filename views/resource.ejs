@@ -42,6 +42,9 @@
       <h3>
             Viewing ratings for <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
       </h3>
+      <p>
+        <%= resource.description %>
+      </p>
    
 
   <!-- <p>
@@ -58,6 +61,9 @@
       </div>
       <% } %>
   </p> -->
+  <p>
+    Like this resource <i class="fa-regular fa-thumbs-up"></i>
+  </p>
   <p>
     <% for (let comment in comments) { %>
       <div class = "userComment">
