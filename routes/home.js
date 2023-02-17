@@ -62,11 +62,10 @@ router.get("/", (req, res) => {
 });
 
 //search query (lightBnb)
-router.post("/search", (req, res) => {
-  const input = req.body.query;
-  pool
-    .query(
-      `
+router.post('/search', (req, res) => {
+  console.log(req.body)
+  const input = req.body.query
+  pool.query(`
     SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
     FROM resources
     LEFT JOIN reviews ON resources.id = reviews.resource_id
@@ -84,7 +83,7 @@ router.post("/search", (req, res) => {
         resources: result.rows,
         title: "Recent Resources",
       };
-      res.json(result.rows);
+      res.json(result.rows)
     })
     .catch((err) => {
       console.error(err);

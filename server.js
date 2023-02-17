@@ -6,11 +6,11 @@ require("dotenv").config();
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const morgan = require("morgan");
-const cookieSession = require("cookie-session");
+
+const cookieSession = require('cookie-session');
 const bcrypt = require("bcrypt");
 var methodOverride = require("method-override");
 
-var methodOverride = require("method-override");
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -39,7 +39,6 @@ app.use(
   })
 );
 app.use(express.static("public"));
-app.use(methodOverride("_method"));
 
 app.use(methodOverride("_method"));
 
@@ -59,6 +58,7 @@ const { Pool } = require("pg"); //importing the database connection
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require("./routes/users-api");
 const widgetApiRoutes = require("./routes/widgets-api");
+const resourceApiRoutes = require("./routes/resources-api");
 
 const usersRoutes = require("./routes/users");
 const registerRoutes = require("./routes/register");
@@ -69,6 +69,7 @@ const homeRoutes = require("./routes/home");
 
 const newRoutes = require("./routes/addResource");
 const resourceRoutes = require("./routes/resource");
+const db = require("./db/connection");
 
 const likesRoutes = require("./routes/likes");
 // Mount all resource routes
@@ -76,6 +77,7 @@ const likesRoutes = require("./routes/likes");
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use("/api/users", userApiRoutes);
 app.use("/api/widgets", widgetApiRoutes);
+app.use("/api/resources", resourceApiRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
 app.use("/likes", likesRoutes);
@@ -86,9 +88,10 @@ app.use("/home", homeRoutes);
 // http://localhost:8080/login  1. get/    2/ get./test    http://localhost:8080/login/test
 
 app.use("/addResource", newRoutes);
-app.use("/register", registerRoutes);
 
 app.use("/resource", resourceRoutes);
+
+
 
 // Note: mount other resources here, using the same pattern above
 
@@ -110,12 +113,15 @@ app.get("/", (req, res) => {
   );
 });
 
+
+
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
 app.get("/register", (req, res) => {
   res.render("registration");
 });
+
 
 app.get("/login", (req, res) => {
   //established user variable with cookie
@@ -125,6 +131,7 @@ app.get("/login", (req, res) => {
   // }
   res.render("login");
 });
+
 
 // app.get("/login", (req, res) => {
 //   //established user variable with cookie
@@ -137,8 +144,8 @@ app.get("/login", (req, res) => {
 
 app.post("/logout", (req, res) => {
   console.log(`logout request for : ${req.session.user}`);
-  setTimeout(() => (req.session.user_id = null), 100);
-  setTimeout(() => res.redirect(`/login/`), 300);
+  setTimeout(()=> req.session = null, 100);
+  setTimeout(()=> res.redirect(`/login/`), 300);
 });
 
 //set id to cookie
@@ -148,6 +155,7 @@ app.post("/logout", (req, res) => {
 //   console.log(req.body);
 //   res.send("okay");
 // }
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
