@@ -33,13 +33,15 @@ app.use(methodOverride('_method'));
 
 router.get('/', (req, res) => {
   pool.query(`
-    SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
-    FROM resources
-    LEFT JOIN reviews ON resources.id = reviews.resource_id
-    LEFT JOIN users_likes ON resources.id = users_likes.resource_id
-    GROUP BY resources.id
-    ORDER BY resources.id
-    LIMIT 5;
+  SELECT t.*, users.username
+  FROM (SELECT resources.*,COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
+  FROM resources
+  LEFT JOIN reviews ON resources.id = reviews.resource_id
+  LEFT JOIN users_likes ON resources.id = users_likes.resource_id
+  GROUP BY resources.id
+  ORDER BY resources.id
+  LIMIT 5)as t
+  JOIN users ON users.id = t.owner_id;
   `)
     .then((result) => {
       console.log(result.rows);
@@ -64,14 +66,16 @@ router.post('/search', (req, res) => {
   console.log(req.body)
   const input = req.body.query
   pool.query(`
-    SELECT resources.*, COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
-    FROM resources
-    LEFT JOIN reviews ON resources.id = reviews.resource_id
-    LEFT JOIN users_likes ON resources.id = users_likes.resource_id
-    WHERE tags LIKE $1
-    GROUP BY resources.id
-    ORDER BY resources.id
-    LIMIT 5;
+  SELECT t.*, users.username
+  FROM (SELECT resources.*,COALESCE(AVG(reviews.rating), 0) AS rating, COUNT(users_likes.user_id) AS likes
+  FROM resources
+  LEFT JOIN reviews ON resources.id = reviews.resource_id
+  LEFT JOIN users_likes ON resources.id = users_likes.resource_id
+  WHERE tags like $1
+  GROUP BY resources.id
+  ORDER BY resources.id
+  LIMIT 5)as t
+  JOIN users ON users.id = t.owner_id;
   `, [`%${input}%`])
     .then((result) => {
       console.log(result.rows);

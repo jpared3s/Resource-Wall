@@ -11,7 +11,18 @@ const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 const app = express();
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'labber',
+  password: 'labber',
+  host: 'localhost',
+  database: 'midterm'
+});;
+
+
 app.use(methodOverride('_method'));
+
 
 router.get('/', (req, res) => {
   const templateVars = {
@@ -45,7 +56,15 @@ router.put('/', (req, res) => {
 
 });
 
-
+router.post('/likes/:id', (req,res) => {
+  const userID = req.session.user_id
+  const resourceID = req.params.id
+  pool.query(`INSERT INTO users_likes (resource_id,user_id) VALUES($1,$2) RETURNING*;`, [resourceID,userID])
+  .then((response) => {
+    console.log(response)
+    return res.status(201).send(response)
+  })
+})
 
 
 module.exports = router;

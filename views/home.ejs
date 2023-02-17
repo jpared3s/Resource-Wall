@@ -21,7 +21,6 @@
   <title>Home</title>
 </head>
 <body>
-
   <nav>
     <span class="nav-icon"><i class="fab fa-square-pied-piper"> Resource-Wall</i></span>
     <!-- <span class="nav-title">Resource-Wall</span> -->
@@ -34,32 +33,31 @@
   </nav>
   <div id="search">
     <form class="search-results">
-
-
-
-  <div class = header>
-  <h1>Resource-Wall</h1>
-  </div>
-  <div id ="search">
+  <div id ="search-box">
     <form>
-
-      <input type="text" name="query" placeholder="Search">
-      <button type="submit">Submit</button>
+      <input type="text" name="query" placeholder="#tag">
+      <button type="submit" id="search-button">Search</button>
     </form>
+    </div>
   </div>
   <h2>Recent Submissions</h2>
   <div id="submissions">
   <ul>
     <% resources.forEach((resource)=> { %>
       <li class="recent-submissions">
+        <div id="user-info">
+        <span class="user-icon"><i class="fa-sharp fa-solid fa-user"></i></span>
+         <%= resource.username %>
+      </div>
+      <div id="submission-url">
         <%= resource.title %>
+      </div>
         <div id="stats">
-        <span class="fa fa-thumbs-up"></span>
+        <span class="fa fa-thumbs-up" id="<%= resource.id %>"></span>
+         <%= resource.likes %>
+          <span class="fa-solid fa-star" onclick="window.location.href='/resource/<%= resource.id %>'"></span>
           <%= parseFloat(resource.rating).toFixed(0) %>
-          <span class="fa-solid fa-star"></span>
-            <%= resource.likes %>
-              <button class="btn" onclick="window.location.href='/review'">
-                <span class="fa fa-pen-to-square" title="Submit A Review"></span>
+                <span class="fa fa-pen-to-square" title="Submit A Review" onclick="window.location.href='/resource/<%= resource.id %>'"></span>
               </button>
             </div>
       </li>
@@ -69,3 +67,4 @@
   <script src="/scripts/home-search.js"></script>
 </body>
 </html>
+
