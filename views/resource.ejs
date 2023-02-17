@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Viewing Resource</title>
+
+  <meta charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/resource.css" />
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  
+
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <!-- External JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <script defer src="/scripts/resource.js"></script>
+  <script defer src="/scripts/header.js"></script>
+</head>
+
+<body>
+  <!-- <h1>Users</h1>
+  <button id="fetch-users">Fetch Users via AJAX</button>
+  <ul id="users"></ul> -->
+  <!-- <h1>Hello, <%%></h1> -->
+  <%- include partials/_header.ejs %>
+  <% if (resource) {%>
+    <article>
+      
+      <h3>
+            Viewing ratings for <a class = "url" id ="<%- resource.id %>" href = "<%= resource.title %>"><%- resource.title %></a>
+      </h3>
+   
+
+  <!-- <p>
+    <% for (let comment in comments) { %>
+      <div class = "userComment">
+        <table>
+          <tr>
+            <td><%= comments[comment].comment %></td>
+          </tr>
+          <tr>
+            <td>Rating: <%= comments[comment].rating %> / 5</td>
+          </tr>
+        </table>
+      </div>
+      <% } %>
+  </p> -->
+  <p>
+    <% for (let comment in comments) { %>
+      <div class = "userComment">
+        <table>
+          <tr>
+            <td><%= comments[comment].comment %></td>
+          </tr>
+          <tr class = "stars">
+            <td>Rating: 
+              <% if (comments[comment].rating === 1) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 2) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 3) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+              <% if (comments[comment].rating === 4) { %>
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+              <% } %>
+            <% if (comments[comment].rating === 5) { %>
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <% } %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <% } %>
+  </p>
+  <!-- <form class="form-inline addComment">
+
+
+    <p class = "messages fieldEmpty">
+        Your comment cannot be empty!
+    </p>
+    <div class="form-group mb-2">
+      <label for="addNewComment">Enter new comment here (optional)</label>
+      <p>      
+        <input class="form-control commentText" type="text" name="comment" placeholder="Please tell us what you think about this resource" />
+      </p>
+
+      <p>
+        <label for="rating">Choose a rating from 1 to 5, with 5 being the highest:</label>
+        <select name="rating" id="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+
+        </select>
+      </p>
+      <button type="Submit" class="btn btn-primary">Submit Rating</button>
+    </div>
+  </form> -->
+  <form class="form-inline addComment">
+
+
+    <p class = "messages fieldEmpty">
+        Your comment cannot be empty!
+    </p>
+    <div class="form-group mb-2">
+      <label for="addNewComment">Enter new comment here (optional)</label>
+      <p>      
+        <input class="form-control commentText" type="text" name="comment" placeholder="Please tell us what you think about this resource" />
+      </p>
+
+      <p>
+        <label for="rating">Choose a rating from 1 to 5, with 5 being the highest:</label>
+        <i class="fa-solid fa-star firstFour star1 firstTwo firstThree"></i><i class="fa-solid fa-star firstFour star2 firstTwo firstThree"></i><i class="fa-solid fa-star firstFour star3 firstThree"></i><i class="fa-solid fa-star firstFour star4"></i><i class="fa-solid fa-star star5"></i>
+      </p>
+
+      <!-- <button type="Submit" class="btn btn-primary">Submit Rating</button> -->
+    </div>
+  </form>
+  <!-- // code below is for testing, delete later -->
+  <!-- <p class="rjtest">
+    <button type="Submit" class="testbtn">Test</button>
+  </p> -->
+  <% } else {%>
+      We're sorry, but this URL does not refer to any resources! Please check to make sure you have the correct URL.
+
+    <% } %>
+  </article>
+
+</body>
+
+</html>

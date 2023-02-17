@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/home-feed.css"/>
+  <link rel="stylesheet" href="/styles/nav.css"/>
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script defer src="/scripts/header.js"></script>
+
+  <title>Home</title>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-icon"><i class="fab fa-square-pied-piper"> Resource-Wall</i></span>
+    <!-- <span class="nav-title">Resource-Wall</span> -->
+    <span class="click-here">
+      <div class="container">
+        <button class="btn" onclick="window.location.href='/login'">Login</button>
+        <button class="btn" onclick="window.location.href='/register'">Register</button>
+      </div>
+    </span>
+  </nav>
+  <div id="search">
+    <form class="search-results">
+
+
+
+  <div class = header>
+  <h1>Resource-Wall</h1>
+  </div>
+  <div id ="search">
+    <form>
+
+      <input type="text" name="query" placeholder="Search">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <h2>Recent Submissions</h2>
+  <div id="submissions">
+  <ul>
+    <% resources.forEach((resource)=> { %>
+      <li class="recent-submissions">
+        <%= resource.title %>
+        <div id="stats">
+        <span style="cursor: pointer" class="fa fa-thumbs-up" class="like" onclick="addLike(<%= resource.id %>)" resourceId=<%= resource.id %>></span>
+          <span class="likeCount"><%= resource.likes %></span>
+          <span class="fa-solid fa-star"></span>
+          <%= parseFloat(resource.rating).toFixed(0) %>
+            
+              <button class="btn" onclick="window.location.href='/review'">
+                <span class="fa fa-pen-to-square" title="Submit A Review"></span>
+              </button>
+            </div>
+      </li>
+      <% }); %>
+  </ul>
+</div>
+  <script src="/scripts/home-search.js"></script>
+  <script>
+    function addLike(resourceId) {
+      console.log(resourceId);
+      $.post('/likes', { resourceId })
+        .done((data) => {
+          console.log('success', data);
+          location.reload();
+        })
+        .fail((err) => {
+          console.log('fail', err);
+          alert('already liked');
+        })
+    }
+  </script>
+</body>
+</html>
