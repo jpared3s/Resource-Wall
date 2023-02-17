@@ -1,3 +1,5 @@
+$tie-at-home: cornflowerblue;
+
 body {
   display: flex;
   // flex-direction: column;
@@ -19,14 +21,31 @@ body {
   article {
     margin-top: 150px;
     .userComment {
+      margin-top: 5px;
       border-style: double;
+      .fa-star {
+        color: yellow;
+      }
+      // .fa-star:hover {
+      //   color: green;
+      // }
     }
     .commentText {
       padding: 11px 0px 11px 0px;
-      width: 100%;
+      width: 90%;
       height: 4em;
-      padding: 0;
       text-align: start;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+      display: flex;
+    }
+    form {
+      background: $tie-at-home;
+      border-style: ridge;
+      .yellow {
+        color:yellow;
+      }
     }
     
   }

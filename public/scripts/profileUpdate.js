@@ -50,6 +50,7 @@ $(document).ready(function() {
     event.preventDefault();
     $(".messages").slideUp(0);
     let $form = $(this);
+    let $current = $form.find(".current_password")
     let $password = $form.find(".new_password");
     let $confirmation = $form.find(".confirm_new_password");
     if (newPassValidator($password.val(),$confirmation.val()) === "empty") {
@@ -62,22 +63,20 @@ $(document).ready(function() {
 
     }
     if (newPassValidator($password.val(),$confirmation.val()) === "valid") {
-      $(".passwordSuccess").slideDown(200);
       
-      $.post("profile/updatepass", $password.serialize())
+      $.post("profile/updatepass", $form.serialize())
       .done(function() {
+        $(".passwordSuccess").slideDown(200);
         console.log("posting done line 237~~~~~~");
       })
-      // .fail(() => alert("Something went wrong when posting your tweet! Please refresh your page and try again."));
+      .fail((error) =>{
+        alert(error.responseText);
+      });
+      // .fail(() => alert("Something went wrong when updating your password! Please refresh your page and try again."));
     }
+    $current.val("")
     $password.val("");
     $confirmation.val("");
-
-    // pool.query(`
-    // UPDATE users
-    // SET password = bcrypt.hashSync($password.val(), 12);
-    // WHERE id = currentuser
-    // `).then(() => {console.log("Update successful!")});
 
 
   });

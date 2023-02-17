@@ -109,11 +109,12 @@ app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
   // const comments = require("./data/comments.json");
 
-  res.render(
-    "index"
-    // resources,
-    // comments,
-  );
+  // res.render(
+  //   "index"
+  //   // resources,
+  //   // comments,
+  // );
+  res.redirect("/home");
 });
 
 
@@ -121,9 +122,9 @@ app.get("/", (req, res) => {
 app.get("/:id/likes", (req, res) => {
   res.render("likesPage");
 });
-app.get("/register", (req, res) => {
-  res.render("registration");
-});
+// app.get("/register", (req, res) => {
+//   res.render("registration");
+// });
 
 
 app.get("/login", (req, res) => {

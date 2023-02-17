@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
       console.error(err);
       res.status(500).send('Error fetching user');
       return;
+
     }
     if (result.rows.length === 0) {
       const templateVars = {
@@ -41,6 +42,7 @@ router.get('/', (req, res) => {
 
     };
     res.render('login', templateVars);
+
   });
 });
 
