@@ -11,23 +11,51 @@
     <link rel="stylesheet" href="/vendor/border-box.css" />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/register.css" />
 
     <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/app.js"></script>
+    <script defer src="/scripts/register.js"></script>
+    <script>
+      function validateForm(){
+
+
+        //  check if all inputs are filled
+        const username = $('#exampleInputUsername1').val()
+        const email = $('#exampleInputEmail1').val()
+        const password = $('#exampleInputPassword1').val()
+        const errorSection = $('#error-section')
+        if(username === "" || email === "" || password === ""){
+          errorSection.html('please make sure all fields are filled')
+          return false
+        }
+        else{
+          errorSection.html("")
+         return true
+        }
+
+
+      }
+    </script>
   </head>
 
   <body>
     <h1>Registration</h1>
+
     <h3>Please Sign Up!!</h3>
-    <form class="mb-3" method="post" action="/register">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input
-          type="username"
-          name="username"
-          class="form-control"
-          id="exampleInputusername1"
-        />
+
+
+
+    <form class="mb-3" method="post" action="/register" onsubmit="return validateForm()" >
+
+
+          <label for="exampleInputEmail1" class="form-label">Username</label>
+          <input
+            type="username"
+            name="username"
+            class="register-username"
+            id="exampleInputUsername1"
+          />
+
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input
           type="email"
@@ -48,7 +76,11 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button id="submit" class="btn btn-primary">Submit</button>
+
+        <p id="error-section"><%= error %></p>
+
     </form>
+
   </body>
 </html>

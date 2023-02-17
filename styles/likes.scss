@@ -1,12 +1,28 @@
+.article-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  text-align: center;
+  background-color: white;
+  width: 55%;
+}
 .page-name {
   display: flex;
-  font-size: 50px;
+  font-size: 43px;
+  justify-content: center;
 }
-.article-container {
-  border: 1px solid black;
-  width: 80%;
-  text-align: center;
-}
+
 .resource-title {
-  font-size: 35px;
+  font-size: 30px;
+}
+.resource-desc {
+  font-size: 25px;
+}
+.resource-tags {
+  font-size: 25px;
+}
+.resource-id {
+  font-size: 25px;
 }

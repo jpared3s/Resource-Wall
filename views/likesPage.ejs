@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
     <link rel="stylesheet" href="/vendor/border-box.css" />
     <link rel="stylesheet" href="/styles/main.css" />
@@ -17,15 +17,20 @@
     <script defer src="/scripts/app.js"></script>
   </head>
   <body>
-    <h1 class="page-name">Likes Page</h1>
+    <%- include partials/_header.ejs %>
+
+
+    <h1 class="page-name"><i class="fa-solid fa-diamond"></i> Likes Page <i class="fa-solid fa-diamond"></i></h1>
+
 
     <form class="article-container" method="get" action="/likes">
       <% for (let resource in resources) { %>
       <article>
         <a class="resource-title" href="<%=resources[resource]["title"]%>"><%= resources[resource]["title"]%></a>
-        <p><%= resources[resource]["description"] %></p>
-        <p><%= resources[resource]["tags"] %></p>
-        <p><%= resources[resource]["user_id"]%></p>
+
+        <p class="resource-desc"><%= resources[resource]["description"] %></p>
+        <p class="resource-tags"><%= resources[resource]["tags"] %></p>
+        <p class="resource-id"><%= resources[resource]["user_id"]%></p>
       </article>
       <% } %>
     </form>
