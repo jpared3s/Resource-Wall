@@ -86,6 +86,24 @@ router.get("/:id", (req, res) => {
 
 })
 
+router.post("/:id/like", (req, res) => {
+  // console.log(req.body);
+  // console.log("line 47")
+  // console.log(req.session)
+  let values = [req.session.user_id, req.params.id];
+  console.log(values);
+  db.query(`INSERT into users_likes (user_id, resource_id) values ($1, $2)`, values).then(() =>{
+    return res.send("add completed");
+  })
+  
+
+  // db.query(`INSERT into reviews (user_id, resource_id, comment, rating) values ($1, $2, $3, $4) RETURNING *;`, values).then((result) => {
+  //   // res.send("okay");
+  //   return res.json(result.rows[0]);
+  // })
+
+})
+
 router.post("/:id", (req, res) => {
   // console.log(req.body);
   // console.log("line 47")
