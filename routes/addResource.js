@@ -10,21 +10,27 @@ const generateRandomString = () => {
 };
 
 router.get("/", (req, res) => {
-  console.log(req.body);
-  const templateVars = {
-    // user: users[req.session.user_id],
-    user: {},
-    
-  };
-  db.query(`SELECT * from users WHERE email = $1`, [req.session.user]).then((result) => {
-    let currentUser = result.rows[0];
-    templateVars.user = currentUser;
+  if (!req.session.user_id) {
+    res.redirect("/login");
 
-  }).catch((e) => console.log(e)).then(() => {
-    // console.log(templateVars.user);
-    res.render('addResource', templateVars)} );
+  } else {
 
-  // res.render('addResource', templateVars);
+    console.log(req.body);
+    const templateVars = {
+      // user: users[req.session.user_id],
+      user: {},
+      
+    };
+    db.query(`SELECT * from users WHERE email = $1`, [req.session.user]).then((result) => {
+      let currentUser = result.rows[0];
+      templateVars.user = currentUser;
+  
+    }).catch((e) => console.log(e)).then(() => {
+      // console.log(templateVars.user);
+      res.render('addResource', templateVars)} );
+  
+    // res.render('addResource', templateVars);
+  }
 });
 
 router.post("/", (req, res) => {

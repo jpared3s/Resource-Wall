@@ -91,7 +91,7 @@ app.use("/home", homeRoutes);
 app.use("/addResource", newRoutes);
 
 
-app.use("/submitRegister", registPageRoutes);
+// app.use("/submitRegister", registerPageRoutes);
 app.use("/resource", resourceRoutes);
 
 
@@ -102,8 +102,7 @@ app.use("/resource", resourceRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-// plug into Login later
-// req.session.user_id = req.body.email;
+
 
 app.get("/", (req, res) => {
   // const resources = require("./data/resources.json");
@@ -127,14 +126,14 @@ app.get("/:id/likes", (req, res) => {
 // });
 
 
-app.get("/login", (req, res) => {
-  //established user variable with cookie
-  // if (user) {
-  //   res.redirect('/')
-  //   return;
-  // }
-  res.render("login");
-});
+// app.get("/login", (req, res) => {
+//   //established user variable with cookie
+//   // if (user) {
+//   //   res.redirect('/')
+//   //   return;
+//   // }
+//   res.render("login");
+// });
 
 
 // app.get("/login", (req, res) => {
