@@ -18,8 +18,8 @@ const app = express();
 //         templateVars.user = currentUser;
 //         console.log("line 19:")
 //         console.log(currentUser);
-//     // let currentUser = 
-  
+//     // let currentUser =
+
 //   })
 //   .catch((e) => console.log(e))
 //     .then(
@@ -29,7 +29,7 @@ const app = express();
 //         templateVars.resource = currentResource;
 //         // console.log("-------------------25-------------")
 //         // console.log(templateVars.resource)
-//         templateVars.comments = result.rows;  
+//         templateVars.comments = result.rows;
 //         return templateVars
 //         // console.log("-------------------30----------");
 //         // console.log(templateVars.resource);
@@ -118,6 +118,6 @@ router.post("/:id", (req, res) => {
 
 })
 
- 
+
 
 module.exports = router;

@@ -1,3 +1,4 @@
+
 console.log("abc")
 $(".search-results").on('submit', function(e) {
   e.preventDefault()
@@ -14,21 +15,50 @@ $(".search-results").on('submit', function(e) {
       resultsList.empty()
         res.forEach((resource) => {
           const listItem = `<li class="recent-submissions">
-          ${resource.title}
-          <span class="fa fa-thumbs-up"></span>
-          ${parseFloat(resource.rating).toFixed(2)}
-            <span class="fa-solid fa-star"></span>
-            ${resource.likes}
-                <button class="btn" onclick="window.location.href='/review'">
-                  <span class="fa fa-pen-to-square"></span>
-                </button>
+          <div id="user-info">
+        <span class="user-icon"><i class="fa-sharp fa-solid fa-user"></i></span>
+         ${resource.username}
+      </div>
+      <div id="submission-url">
+        ${resource.title}
+      </div>
+      <div id="stats">
+      <span class="fa fa-thumbs-up" id="${resource.id}"></span>
+       ${resource.likes}
+        <span class="fa-solid fa-star" onclick="window.location.href='/resource/${resource.id}'"></span>
+        ${parseFloat(resource.rating).toFixed(0)}
+              <span class="fa fa-pen-to-square" title="Submit A Review" onclick="window.location.href='/resource/${resource.id}'"></span>
+            </button>
+          </div>
         </li>`
           resultsList.append(listItem)
+          $(".fa-thumbs-up").on('click', function(e) {
+            const resourceId = $(this).attr("id");
+            $.ajax({
+              method: "POST",
+              url: `http://localhost:8080/users/likes/${resourceId}`,
+              type: "application/json",
+              success: function(res){
+                console.log(res)
+              }
+            })
+          })
         })
     }
   })
 })
 
+$(".fa-thumbs-up").on('click', function(e) {
+  const resourceId = $(this).attr("id");
+  $.ajax({
+    method: "POST",
+    url: `http://localhost:8080/users/likes/${resourceId}`,
+    type: "application/json",
+    success: function(res){
+      console.log(res)
+    }
+  })
+})
 // $(".search-results").on('submit', function(e) {
 //   e.preventDefault()
 //   $.ajax({
